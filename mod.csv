@@ -7,6 +7,7 @@ rawfile,maps/_zombiemode_zone_manager.gsc
 
 // AI
 rawfile,maps/_zombiemode_ai_director.gsc
+rawfile,maps/_zombiemode_ai_dogs.gsc
 
 //MAPS
 rawfile,maps/zombie_cod5_prototype.gsc
