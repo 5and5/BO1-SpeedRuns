@@ -1,0 +1,21 @@
+//GENERAL
+rawfile,maps/_zombiemode.gsc
+rawfile,maps/_zombiemode_weapons.gsc
+rawfile,maps/_zombiemode_perks.gsc
+rawfile,maps/_zombiemode_powerups.gsc
+rawfile,maps/_zombiemode_zone_manager.gsc
+
+// AI
+rawfile,maps/_zombiemode_ai_director.gsc
+
+//MAPS
+rawfile,maps/zombie_cod5_prototype.gsc
+rawfile,maps/zombie_cod5_asylum.gsc
+rawfile,maps/zombie_cod5_sumpf.gsc
+rawfile,maps/zombie_cod5_factory.gsc
+rawfile,maps/zombie_theater.gsc
+rawfile,maps/zombie_pentagon.gsc
+rawfile,maps/zombie_cosmodrome.gsc
+rawfile,maps/zombie_coast.gsc
+rawfile,maps/zombie_temple.gsc
+rawfile,maps/zombie_moon.gsc
