@@ -18,11 +18,12 @@
 ### Theif
 * First theif round is always the round after you turn on power
 * Always 4 rounds between theif rounds
-<!-- ### Monkeys
+### Monkeys
 * First monkey round is always the round after you turn on power and have purchased a perk
 * Always 4 rounds between theif rounds
 ### George
-* Always give a max every 4 rounds -->
+* No longer shocks you
+* Always give a max every 4 rounds
 
 ## Maps
 
@@ -34,6 +35,7 @@
 
 ### Five
 * Windows set
+* Initial box set to two spawn
 #### Weapons in box
 * Raygun
 * Crossbow
@@ -65,6 +67,31 @@
 * Raygun
 * Wonder Waffe
 * Monkeys
+
+### Ascension
+#### Weapons in box
+* Raygun
+* Thunder Gun
+* Gersh
+
+### Call of the Dead
+* Initial box set to mule kick
+* Removed initial spawn delay
+#### Weapons in box
+* Raygun
+* Scavenger
+* Dolls
+
+### Shangri-la
+* Initial box set to waterfall
+* Initial perks locations set
+* Initial pack-a-punch stone set to spawn
+#### Weapons in box
+* Babygun
+* Monkeys
+
+### Moon
+* Nope
 
 
 ## TODO

@@ -889,7 +889,21 @@ init_starting_chest_location()
 
 		else if(level.script == "zombie_coast")
             {
-                if(IsSubStr(level.chests[i].script_noteworthy, "residence_chest" ))
+                if(IsSubStr(level.chests[i].script_noteworthy, "start_chest" )) //residence_chest = flopper
+                    {
+                        level.chest_index = i;
+                        level.chests[level.chest_index] hide_rubble();
+                        level.chests[level.chest_index].hidden = false;
+                    }
+                    else
+                    {
+                        level.chests[i] hide_chest();
+                    }
+            }
+
+        else if(level.script == "zombie_temple")
+            {
+                if(IsSubStr(level.chests[i].script_noteworthy, "bridge_chest" ))
                     {
                         level.chest_index = i;
                         level.chests[level.chest_index] hide_rubble();
