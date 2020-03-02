@@ -887,6 +887,20 @@ init_starting_chest_location()
 					}
 				}
 
+		else if(level.script == "zombie_coast")
+            {
+                if(IsSubStr(level.chests[i].script_noteworthy, "residence_chest" ))
+                    {
+                        level.chest_index = i;
+                        level.chests[level.chest_index] hide_rubble();
+                        level.chests[level.chest_index].hidden = false;
+                    }
+                    else
+                    {
+                        level.chests[i] hide_chest();
+                    }
+            }
+
 		else if( isdefined( level.random_pandora_box_start ) && level.random_pandora_box_start == true )
 		{
 			if ( start_chest_found || (IsDefined( level.chests[i].start_exclude ) && level.chests[i].start_exclude == 1) )
