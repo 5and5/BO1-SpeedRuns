@@ -159,6 +159,8 @@ main()
 
 	level thread maps\zombie_temple_sq::start_temple_sidequest();
 
+	// night mode
+	level thread activate_night();
 }
 
 init_client_flags()
@@ -1151,5 +1153,18 @@ temple_revive_solo_fx()
 			vending_triggers[i] delete();
 			break;
 		}
+	}
+}
+
+activate_night()
+{
+    flag_wait("all_players_spawned");
+
+	for(;;)
+	{
+		wait 0.1;
+		SetSunlight( 0.5426, 0.6538, 0.7657);
+		SetSavedDvar("r_lightTweakSunLight", 11);
+		SetSavedDvar("r_skyTransition", 1);
 	}
 }

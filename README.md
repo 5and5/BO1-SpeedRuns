@@ -78,24 +78,19 @@
 * Initial box set to mule kick
 * Removed initial spawn delay
 #### Weapons in box
-* Raygun
-* Scavenger
-* Dolls
+    Raygun
+    Scavenger
+    Dolls
 
 ### Shangri-la
+* Night mode
 * Initial box set to waterfall
 * Initial perks locations set
 * Initial pack-a-punch stone set to spawn
 #### Weapons in box
-* Babygun
-* Monkeys
+    * Babygun
+    * Monkeys
 
 ### Moon
 * Nope
 
-
-## TODO
-### Shang
-* pap stone
-* perks
-* night mode
