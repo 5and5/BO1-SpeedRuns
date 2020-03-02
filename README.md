@@ -27,18 +27,25 @@
 * Only guns in the box are bow, raygun, monkeys
 
 ### Nacht Der Untoten
-#### Weapons
-* Raygun
-* Wonder waffe
-* Monkeys
+#### Weapons in box
+    * Raygun
+    * Wonder waffe
+    * Monkeys
 
 ### Verruckt
-* Only guns in the box are raygun, winters howl, dual CZ's, monkeys
+#### Weapons in box
+    * Raygun
+    * Winters Howl
+    * Dual CZ
+    * Monkeys
 
 ### Shi No Numa
 
 ### Der Riese
-* Guns: raygun, wonderwafee, monkeys
+#### Weapons in box
+    * Raygun
+    * Wonder Waffe
+    * Monkeys
 
 
 ## TODO

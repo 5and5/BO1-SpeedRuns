@@ -654,34 +654,6 @@ include_weapons()
 }
 
 
-factory_ray_gun_weighting_func()
-{
-	if( level.chest_moves > 0 )
-	{
-		num_to_add = 1;
-		// increase the percentage of ray gun
-		if( isDefined( level.pulls_since_last_ray_gun ) )
-		{
-			// after 12 pulls the ray gun percentage increases to 15%
-			if( level.pulls_since_last_ray_gun > 11 )
-			{
-				num_to_add += int(level.zombie_include_weapons.size*0.1);
-			}
-			// after 8 pulls the Ray Gun percentage increases to 10%
-			else if( level.pulls_since_last_ray_gun > 7 )
-			{
-				num_to_add += int(.05 * level.zombie_include_weapons.size);
-			}
-		}
-		return num_to_add;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-
 //
 //	Slightly elevate the chance to get it until someone has it, then make it even
 factory_cymbal_monkey_weighting_func()
