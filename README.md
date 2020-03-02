@@ -25,14 +25,14 @@
 * No longer shocks you
 * Always give a max every 4 rounds
 
-### Box
+## Box
 * First box hit will always be a raygun on maps that need it
 
 ## Maps
 
 ## Kino Der Toten
 #### Weapons in box
-    -Raygun
+    -Ray Gun
     -Thunder Gun
     -Monkeys
 
@@ -40,19 +40,19 @@
 * Windows set
 * Initial box set to two spawn
 #### Weapons in box
-    -Raygun
+    -Ray Gun
     -Crossbow
     -Monkeys
 
 ## Nacht Der Untoten
 #### Weapons in box
-    -Raygun
+    -Ray Gun
     -Wonder waffe
     -Monkeys
 
 ## Verruckt
 #### Weapons in box
-    -Raygun
+    -Ray Gun
     -Winters Howl
     -Dual CZ
     -Monkeys
@@ -60,20 +60,20 @@
 ## Shi No Numa
 * Double tap is always in fishing hut
 #### Weapons in box
-    -Raygun
+    -Ray Gun
     -Wonder Waffe
     -Dual CZ
     -Monkeys
 
 ## Der Riese
 #### Weapons in the box
-    -Raygun
+    -Ray Gun
     -Wonder Waffe
     -Monkeys
 
 ## Ascension
 #### Weapons in the box
-    -Raygun
+    -Ray Gun
     -Thunder Gun
     -Gersh
 
@@ -81,7 +81,7 @@
 * Initial box set to mule kick
 * Removed initial spawn delay
 #### Weapons in the box
-    -Raygun
+    -Ray Gun
     -Scavenger
     -Dolls
 
@@ -91,9 +91,15 @@
 * Initial perks locations set
 * Initial pack-a-punch stone set to spawn
 #### Weapons in the box
-    -Babygun
+    -Baby Gun
     -Monkeys
 
 ## Moon
 * Nope
+
+## Huge shout out to:
+* **_SE2Dev_** - For making LinkerMod
+* **_Nukem_** - For making LinkerMod
+* **_Treyarch_** - For making the best zombie game of all time
+* **_Teruhhh_** - For making the initial version of this mod on Five
 
