@@ -197,7 +197,7 @@ main()
 	// TODO: Get it working then hand off to Laufer so he can transfer it to csc
 	level thread coast_power_on_lighthouse_react();
 
-	//level thread coast_spawn_init_delay();
+	level thread coast_spawn_init_delay();
 
 	level thread maps\zombie_coast_fx:: manage_blizzard();
 
@@ -481,7 +481,7 @@ include_weapons()
 	include_weapon( "crossbow_explosive_upgraded_zm", false );
 
 	// these are not available yet until their functionality is more complete
-	include_weapon( "humangun_zm", false, false );
+	include_weapon( "humangun_zm", true, false );
 	include_weapon( "humangun_upgraded_zm", false );
 	include_weapon( "sniper_explosive_zm", true );
 	include_weapon( "sniper_explosive_upgraded_zm", false );

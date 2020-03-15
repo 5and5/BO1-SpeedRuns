@@ -281,7 +281,7 @@ include_weapons()
 	include_weapon( "zombie_cymbal_monkey" );
 	include_weapon( "ray_gun_zm", true, false, maps\_zombiemode_weapons::default_ray_gun_weighting_func);
 	include_weapon( "ray_gun_upgraded_zm", false );
-	include_weapon( "freezegun_zm", false );
+	include_weapon( "freezegun_zm",true , false );
 	include_weapon( "freezegun_upgraded_zm", false );
 	include_weapon( "crossbow_explosive_zm" );
 	include_weapon( "crossbow_explosive_upgraded_zm", false );

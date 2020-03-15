@@ -1429,7 +1429,7 @@ difficulty_init()
 #/
 	for ( p=0; p<players.size; p++ )
 	{
-		players[p].score = points; // 5555
+		players[p].score = 55555;//points; // 5555
 		players[p].score_total = players[p].score;
 		players[p].old_score = players[p].score;
 	}
@@ -1682,7 +1682,9 @@ onPlayerSpawned()
 				self thread player_monitor_travel_dist();
 
 				self thread player_grenade_watcher();
+
 				self thread zombies_remaining_hud();
+				self thread health_bar_hud();
 
 			}
 		}
@@ -3904,6 +3906,10 @@ chalk_round_over()
 
 round_think()
 {
+    //level.round_number = 51; //69
+    //level.zombie_vars["zombie_spawn_delay"] = .08;
+    //level.zombie_move_speed = 105;
+
 	for( ;; )
 	{
 		//////////////////////////////////////////
@@ -6576,42 +6582,154 @@ set_sidequest_completed(id)
 
 zombies_remaining_hud()
 {
+	self endon("disconnect");
+	self endon("end_game");
+
+	hud_wait();
+
 	zombs_remaining = NewClientHudElem( self );
 	zombs_remaining.horzAlign = "left";
 	zombs_remaining.vertAlign = "top";
 	zombs_remaining.alignX = "left";
 	zombs_remaining.alignY = "top";
-	//zombs_remaining.y -= 100;
+	zombs_remaining.y += 2;
 	zombs_remaining.x += 4;
 	zombs_remaining.foreground = true;
 	zombs_remaining.fontScale = 1.5;
-	zombs_remaining.alpha = 1;
+	zombs_remaining.alpha = 0;
 	zombs_remaining.color = ( 1.0, 1.0, 1.0 );
+	level.hudelem_count++;
+
+	hud_fade_in(zombs_remaining);
+	self thread hud_end(zombs_remaining);
+
 	while(1)
 	{
 		zombs = level.zombie_total + get_enemy_count();
 		zombs_remaining SetText("Remaining: " + zombs);
-		wait .05;
+		wait 0.05;
 	}
 }
 
 timer_hud()
 {
+	self endon("disconnect");
+
+	hud_wait();
+
 	timer = NewHudElem();
 	timer.horzAlign = "right";
 	timer.vertAlign = "top";
 	timer.alignX = "right";
 	timer.alignY = "top";
-	timer.y += 0;
+	timer.y += 2;
 	timer.x -= 4;
 	timer.foreground = true;
 	timer.fontScale = 1.5;
-	timer.alpha = 1;
+	timer.alpha = 0;
 	timer.color = ( 1.0, 1.0, 1.0 );
+	level.hudelem_count++;
+
+	hud_fade_in(timer);
+	self thread hud_end(timer);
 
 	if (level.script == "zombie_cosmodrome")
 	{
-		timer SetTimerUp(9);
+		timer SetTimerUp(7);
 	} else
-	timer SetTimerUp(3);
+	timer SetTimerUp(0.6);
+}
+
+health_bar_hud()
+{
+	self endon("disconnect");
+	self endon("end_game");
+
+	hud_wait();
+
+	width = 112.5;
+	height = 6;
+
+	barElem = newClientHudElem(	self );
+	barElem.horzAlign = "left";
+	barElem.vertAlign = "bottom";
+	barElem.alignX = "left";
+	barElem.alignY = "bottom";
+	barElem.x = 1;
+	barElem.y = -101;
+	barElem.width = width;
+	barElem.height = height;
+	barElem.frac = 0;
+	barElem.color = (1, 1, 1);
+	barElem.alpha = 0;
+	barElem.shader = "white";
+	barElem setShader( "white", width, height );
+	barElem.hidden = false;
+	level.hudelem_count++;
+	barElem.hidewheninmenu = 1;
+
+	text = NewClientHudElem( self );
+	text.horzAlign = "left";
+	text.vertAlign = "bottom";
+	text.alignX = "left";
+	text.alignY = "bottom";
+	text.x = 49;
+	text.y = -107;
+	text.foreground = true;
+	text.fontScale = 1.3;
+	text.alpha = 0;
+	text.color = ( 1.0, 1.0, 1.0 );
+	level.hudelem_count++;
+	text.hidewheninmenu = 1;
+
+	hud_fade_in(text);
+	hud_fade_in(barElem);
+
+	self thread hud_end(text);
+	self thread hud_end(barElem);
+
+	while (1)
+	{
+		barElem updateHealth(self.health / self.maxhealth);
+		text setText(self.health);
+
+		if(is_true( self.waiting_to_revive ))
+		{
+			barElem.alpha = 0;
+			text.alpha = 0;
+		}
+		else
+		{
+			barElem.alpha = 1;
+			text.alpha = 1;
+		}
+
+		wait 0.05;
+	}
+}
+
+updateHealth( barFrac )
+{
+	barWidth = int(self.width * barFrac);
+
+	self.frac = barFrac;
+	self setShader( self.shader, barWidth, self.height );
+}
+
+hud_wait()
+{
+	flag_wait( "all_players_spawned" );
+	wait 2;
+}
+
+hud_end( hud )
+{
+	level waittill ( "end_game" );
+	hud destroy_hud();
+}
+
+hud_fade_in( hud )
+{
+	hud fadeOverTime(1);
+	hud.alpha = 1;
 }

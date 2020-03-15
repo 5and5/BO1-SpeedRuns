@@ -447,7 +447,7 @@ thief_round_tracker()
 			level.round_wait_func = ::thief_round_wait;
 
 			level.prev_thief_round = level.next_thief_round;
-			level.next_thief_round = level.round_number + 4;
+			level.next_thief_round = level.round_number + 4; // 44444
 		}
 		else if ( level.prev_thief_round == level.round_number )
 		{
