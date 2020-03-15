@@ -6,9 +6,10 @@
 ### HUD
 * Game timer
 * Zombie counter
+* Health bar
 
 ### Power Ups
-* Perk bottles always gives jug if you don' have it
+* Perk bottles always gives jug if you don't have it
 * First drop cycle of the game will always be double points, nuke, insta kill, max ammo
 
 ## Special Rounds
@@ -42,6 +43,7 @@
 #### Weapons in box
     -Ray Gun
     -Crossbow
+    -Winters Howl
     -Monkeys
 
 ## Nacht Der Untoten
@@ -79,10 +81,11 @@
 
 ## Call of the Dead
 * Initial box set to mule kick
-* Removed initial spawn delay
+* Disabled George shock from a distance
 #### Weapons in the box
     -Ray Gun
     -Scavenger
+    -VR-11
     -Dolls
 
 ## Shangri-la
