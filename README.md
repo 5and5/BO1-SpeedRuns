@@ -1,3 +1,17 @@
+# Speed Running Mod
+
+## Download
+
+[Download](https://github.com/5and5/BO1-SpeedRuns/blob/master/README.md)
+
+## Created by: 5and5
+
+[YouTube](https://www.youtube.com/user/Zomb0s4life)
+
+[Twitch](https://twitch.tv/5and5)
+
+[Twitter](https://twitter.com/5and55)
+
 
 ## General
 * Default fov is 75
