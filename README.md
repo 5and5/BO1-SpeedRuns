@@ -2,7 +2,7 @@
 
 ## Download
 
-[Download](https://github.com/5and5/BO1-SpeedRuns/blob/master/README.md)
+[Download](https://github.com/5and5/BO1-SpeedRuns/releases)
 
 ## Created by: 5and5
 
