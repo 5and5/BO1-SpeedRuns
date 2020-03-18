@@ -46,7 +46,7 @@
 
 ## Maps
 
-## Kino Der Toten
+### Kino Der Toten
 * Initial box set to mpl
 
 #### Weapons in box
@@ -54,7 +54,7 @@
     -Thunder Gun
     -Monkeys
 
-## Five
+### Five
 * Windows set
 * Initial box set to two spawn
 
@@ -64,20 +64,20 @@
     -Winters Howl
     -Monkeys
 
-## Nacht Der Untoten
+### Nacht Der Untoten
 #### Weapons in box
     -Ray Gun
     -Wonder waffe
     -Monkeys
 
-## Verruckt
+### Verruckt
 #### Weapons in box
     -Ray Gun
     -Winters Howl
     -Dual CZ
     -Monkeys
 
-## Shi No Numa
+### Shi No Numa
 * Double tap is always in fishing hut
 
 #### Weapons in box
@@ -86,19 +86,19 @@
     -Dual CZ
     -Monkeys
 
-## Der Riese
+### Der Riese
 #### Weapons in the box
     -Ray Gun
     -Wonder Waffe
     -Monkeys
 
-## Ascension
+### Ascension
 #### Weapons in the box
     -Ray Gun
     -Thunder Gun
     -Gershs
 
-## Call of the Dead
+### Call of the Dead
 * Initial box set to mule kick
 * Disabled George shock from a distance
 
@@ -108,7 +108,7 @@
     -VR-11
     -Dolls
 
-## Shangri-la
+### Shangri-la
 * Night mode
 * Initial box set to waterfall
 * Initial perks locations set
@@ -118,7 +118,7 @@
     -Baby Gun
     -Monkeys
 
-## Moon NML
+### Moon NML
 * Always jug
 * Initial spawn is 15 zombies instead of 10
 * Reduced no spawn time from 25 to 2 seconds
