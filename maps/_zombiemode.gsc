@@ -1429,7 +1429,7 @@ difficulty_init()
 #/
 	for ( p=0; p<players.size; p++ )
 	{
-		players[p].score = 55555;//points; // 5555
+		players[p].score = points; // 5555
 		players[p].score_total = players[p].score;
 		players[p].old_score = players[p].score;
 	}
@@ -1558,6 +1558,15 @@ onPlayerConnect_clientDvars()
 
 	self setClientDvar( "aim_lockon_pitch_strength", 0.0 );
 
+	// allows shooting while looking at players
+	self SetClientDvar("g_friendlyFireDist", 0);
+
+	// disable melee lunge
+	self setClientDvar( "aim_automelee_enabled", 0 );
+
+	// ammo on HUD never fades away
+	self SetClientDvar("hud_fade_ammodisplay", 0);
+
 	if(!level.wii)
 	{
 		//self SetClientDvar("r_enablePlayerShadow", 1);
@@ -1683,7 +1692,9 @@ onPlayerSpawned()
 
 				self thread player_grenade_watcher();
 
+				// custom hud
 				self thread zombies_remaining_hud();
+				self thread drop_tracker_hud();
 				self thread health_bar_hud();
 
 			}
@@ -3906,7 +3917,7 @@ chalk_round_over()
 
 round_think()
 {
-    //level.round_number = 51; //69
+    //level.round_number = 60; //69
     //level.zombie_vars["zombie_spawn_delay"] = .08;
     //level.zombie_move_speed = 105;
 
@@ -6606,7 +6617,41 @@ zombies_remaining_hud()
 	while(1)
 	{
 		zombs = level.zombie_total + get_enemy_count();
-		zombs_remaining SetText("Remaining: " + zombs);
+		zombs_remaining SetText("Zombies: " + zombs);
+		wait 0.05;
+	}
+}
+
+drop_tracker_hud()
+{
+	self endon("disconnect");
+	self endon("end_game");
+
+	hud_wait();
+
+	num_drops = NewClientHudElem( self );
+	num_drops.horzAlign = "left";
+	num_drops.vertAlign = "top";
+	num_drops.alignX = "left";
+	num_drops.alignY = "top";
+	num_drops.y += 20;
+	num_drops.x += 4;
+	num_drops.foreground = true;
+	num_drops.fontScale = 1.5;
+	num_drops.alpha = 0;
+	num_drops.text = "0";
+	num_drops.color = ( 1.0, 1.0, 1.0 );
+	num_drops.hidewheninmenu = 1;
+	level.hudelem_count++;
+
+	hud_fade_in(num_drops);
+	self thread hud_end(num_drops);
+
+	while(1)
+	{
+		drops = level.drop_tracker_index;
+		index = level.zombie_powerup_array.size;
+		num_drops SetText("Drops: " + drops + "/" + index);
 		wait 0.05;
 	}
 }
@@ -6730,6 +6775,6 @@ hud_end( hud )
 
 hud_fade_in( hud )
 {
-	hud fadeOverTime(1);
+	hud fadeOverTime(0.6);
 	hud.alpha = 1;
 }

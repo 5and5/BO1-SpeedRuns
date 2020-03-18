@@ -137,6 +137,9 @@ init_powerups()
 	// Randomize the order
 	//randomize_powerups();
 	level.zombie_powerup_index = 0;
+
+	level.drop_tracker_index = 0;
+	level.num_unavailable_powerups = 0;
 	//randomize_powerups();
 
 	// Rare powerups
@@ -339,6 +342,41 @@ randomize_powerups()
 	level.zombie_powerup_array = array_randomize( level.zombie_powerup_array );
 }
 
+get_num_unavailable_powerups() {
+	num_unavailable_powerups = 0;
+
+	if (level.script == "zombie_temple" || level.script == "zombie_coast" || level.script == "zombie_moon" || level.script == "zombie_pentagon" || level.script == "zombie_cosmodrome" ||
+		level.script == "zombie_theater")
+	{
+		if (level.zombie_vars["zombie_powerup_fire_sale_on"] == true ||
+				   level.chest_moves < 1 )
+		{
+			num_unavailable_powerups++;
+		}
+
+		if (level.script != "zombie_theater" && level.script != "zombie_temple" && minigun_no_drop())
+		{
+			num_unavailable_powerups++;
+		}
+	}
+
+	if (get_num_window_destroyed() < 5 )
+	{
+		num_unavailable_powerups++;
+	}
+
+	if (level.script == "zombie_pentagon" || level.script == "zombie_cosmodrome" || level.script == "zombie_temple")
+	{
+		num_unavailable_powerups += 1;
+	}
+	if (level.script == "zombie_coast")
+	{
+		num_unavailable_powerups += 2;
+	}
+
+	return num_unavailable_powerups;
+}
+
 //
 // Get the next powerup in the list
 //
@@ -452,6 +490,14 @@ get_valid_powerup()
 		}
 		else
 		{
+			level.drop_tracker_index++;
+
+			level.num_unavailable_powerups = get_num_unavailable_powerups();
+			if( level.drop_tracker_index >= (level.zombie_powerup_array.size - level.num_unavailable_powerups))
+			{
+				level.drop_tracker_index = 0;
+			}
+
 			return( powerup );
 		}
 	}
@@ -635,7 +681,7 @@ powerup_drop(drop_point)
 	// some guys randomly drop, but most of the time they check for the drop flag
 	rand_drop = randomint(100);
 
-	if (rand_drop > 2)
+	if (rand_drop > 100) // drops rate
 	{
 		if (!level.zombie_vars["zombie_drop_item"])
 		{
