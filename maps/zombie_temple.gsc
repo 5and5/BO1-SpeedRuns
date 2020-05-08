@@ -384,9 +384,9 @@ include_weapons()
 
 	//	Weapons - Special
 	include_weapon( "zombie_cymbal_monkey" );
-	include_weapon( "ray_gun_zm", false );
+	include_weapon( "ray_gun_zm" );
 	include_weapon( "ray_gun_upgraded_zm", false );
-	include_weapon( "shrink_ray_zm", true , false, maps\_zombiemode_weapons::default_ray_gun_weighting_func );
+	include_weapon( "shrink_ray_zm", true , false );
 	include_weapon( "shrink_ray_upgraded_zm", false );
 
 	include_weapon( "crossbow_explosive_zm", false );
@@ -1159,12 +1159,9 @@ temple_revive_solo_fx()
 activate_night()
 {
     flag_wait("all_players_spawned");
+    wait 1.8;
 
-	for(;;)
-	{
-		wait 0.1;
-		SetSunlight( 0.5426, 0.6538, 0.7657);
-		SetSavedDvar("r_lightTweakSunLight", 11);
-		SetSavedDvar("r_skyTransition", 1);
-	}
+	SetSunlight( 0.5426, 0.6538, 0.7657);
+	SetSavedDvar("r_lightTweakSunLight", 11);
+	SetSavedDvar("r_skyTransition", 1);
 }

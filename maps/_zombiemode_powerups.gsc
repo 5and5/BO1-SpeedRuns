@@ -139,7 +139,6 @@ init_powerups()
 	level.zombie_powerup_index = 0;
 
 	level.drop_tracker_index = 0;
-	level.num_unavailable_powerups = 0;
 	//randomize_powerups();
 
 	// Rare powerups
@@ -342,45 +341,10 @@ randomize_powerups()
 	level.zombie_powerup_array = array_randomize( level.zombie_powerup_array );
 }
 
-get_num_unavailable_powerups() {
-	num_unavailable_powerups = 0;
-
-	if (level.script == "zombie_temple" || level.script == "zombie_coast" || level.script == "zombie_moon" || level.script == "zombie_pentagon" || level.script == "zombie_cosmodrome" ||
-		level.script == "zombie_theater")
-	{
-		if (level.zombie_vars["zombie_powerup_fire_sale_on"] == true ||
-				   level.chest_moves < 1 )
-		{
-			num_unavailable_powerups++;
-		}
-
-		if (level.script != "zombie_theater" && level.script != "zombie_temple" && minigun_no_drop())
-		{
-			num_unavailable_powerups++;
-		}
-	}
-
-	if (get_num_window_destroyed() < 5 )
-	{
-		num_unavailable_powerups++;
-	}
-
-	if (level.script == "zombie_pentagon" || level.script == "zombie_cosmodrome" || level.script == "zombie_temple")
-	{
-		num_unavailable_powerups += 1;
-	}
-	if (level.script == "zombie_coast")
-	{
-		num_unavailable_powerups += 2;
-	}
-
-	return num_unavailable_powerups;
-}
-
 //
 // Get the next powerup in the list
 //
-get_next_powerup()
+/*get_next_powerup()
 {
 	powerup = level.zombie_powerup_array[ level.zombie_powerup_index ];
 
@@ -389,6 +353,34 @@ get_next_powerup()
 	{
 		level.zombie_powerup_index = 0;
 		randomize_powerups();
+	}
+
+	return powerup;
+}*/
+
+get_next_powerup()
+{
+	powerup = level.zombie_powerup_array[ level.zombie_powerup_index ];
+
+	while(1)
+	{
+		if(is_valid_powerup(level.zombie_powerup_array[level.zombie_powerup_index]))
+		{
+			level.drop_tracker_index++;
+		}
+		level.zombie_powerup_index++;
+
+		if( level.zombie_powerup_index >= level.zombie_powerup_array.size )
+		{
+			level.drop_tracker_index = 0;
+			level.zombie_powerup_index = 0;
+			randomize_powerups();
+		}
+
+		if(is_valid_powerup(level.zombie_powerup_array[level.zombie_powerup_index]))
+		{
+			break;
+		}
 	}
 
 	return powerup;
@@ -403,7 +395,42 @@ get_next_powerup()
 //   "fire_sale": Needs the box to have moved
 //
 //
+
 get_valid_powerup()
+{
+/#
+	if( isdefined( level.zombie_devgui_power ) && level.zombie_devgui_power == 1 )
+		return level.zombie_powerup_array[ level.zombie_powerup_index ];
+#/
+
+	if ( isdefined( level.zombie_powerup_boss ) )
+	{
+		i = level.zombie_powerup_boss;
+		level.zombie_powerup_boss = undefined;
+		return level.zombie_powerup_array[ i ];
+	}
+
+	if ( isdefined( level.zombie_powerup_ape ) )
+	{
+		powerup = level.zombie_powerup_ape;
+		level.zombie_powerup_ape = undefined;
+		return powerup;
+	}
+
+	powerup = get_next_powerup();
+	while( 1 )
+	{
+		if(!is_valid_powerup(powerup))
+		{
+			powerup = get_next_powerup();
+		}
+		else
+		{
+			return( powerup );
+		}
+	}
+}
+/*get_valid_powerup()
 {
 /#
 	if( isdefined( level.zombie_devgui_power ) && level.zombie_devgui_power == 1 )
@@ -490,18 +517,10 @@ get_valid_powerup()
 		}
 		else
 		{
-			level.drop_tracker_index++;
-
-			level.num_unavailable_powerups = get_num_unavailable_powerups();
-			if( level.drop_tracker_index >= (level.zombie_powerup_array.size - level.num_unavailable_powerups))
-			{
-				level.drop_tracker_index = 0;
-			}
-
 			return( powerup );
 		}
 	}
-}
+}*/
 
 minigun_no_drop()
 {
@@ -681,7 +700,7 @@ powerup_drop(drop_point)
 	// some guys randomly drop, but most of the time they check for the drop flag
 	rand_drop = randomint(100);
 
-	if (rand_drop > 100) // drops rate
+	if (rand_drop > 3) // drops rate
 	{
 		if (!level.zombie_vars["zombie_drop_item"])
 		{
@@ -3091,4 +3110,68 @@ repair_far_boards(barriers)
 		wait_network_frame();
 	}
 }
+
+is_valid_powerup(powerup_name)
+{
+	// Carpenter needs 5 destroyed windows
+	if( powerup_name == "carpenter" && get_num_window_destroyed() < 5 )
+	{
+		return false;
+	}
+	// Don't bring up fire_sale if the box hasn't moved
+	else if( powerup_name == "fire_sale" && ( level.zombie_vars["zombie_powerup_fire_sale_on"] == true || level.chest_moves < 1 ) ) //level.zombie_vars["zombie_powerup_fire_sale_on"] == true ||
+	{
+		return false;
+	}
+	else if( powerup_name == "all_revive" )
+	{
+		if ( !maps\_laststand::player_num_in_laststand() ) //PI ESM - at least one player have to be down for this power-up to appear
+		{
+			return false;
+		}
+	}
+	else if ( powerup_name == "bonfire_sale" )	// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "minigun" && minigun_no_drop() ) // don't drop unless life bought in solo, or power has been turned on
+	{
+		return false;
+	}
+	else if ( powerup_name == "free_perk" )		// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "tesla" )					// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "random_weapon" )					// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "bonus_points_player" )					// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "bonus_points_team" )					// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "lose_points_team" )					// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "lose_perk" )					// never drops with regular powerups
+	{
+		return false;
+	}
+	else if( powerup_name == "empty_clip" )					// never drops with regular powerups
+	{
+		return false;
+	}
+
+	return true;
+}
+
 

@@ -121,7 +121,11 @@
 ## Moon NML
 * Always jug
 * Initial spawn is 15 zombies instead of 10
-* Reduced no spawn time from 25 to 2 seconds
+* Reduced no spawn time from 16 to 2 seconds
+
+# TODO
+* Change weapons to high probabality
+* Change second box
 
 ## Huge shout out to:
 * **_SE2Dev_** - For making LinkerMod
