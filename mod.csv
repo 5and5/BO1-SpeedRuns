@@ -21,7 +21,7 @@ rawfile,maps/zombie_pentagon.gsc
 rawfile,maps/zombie_cosmodrome.gsc
 rawfile,maps/zombie_coast.gsc
 rawfile,maps/zombie_temple.gsc
-//rawfile,maps/zombie_moon.gsc
+rawfile,maps/zombie_moon.gsc
 
 //MAP FILES
 rawfile,maps/zombie_temple_pack_a_punch.gsc

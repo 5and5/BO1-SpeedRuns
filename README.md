@@ -17,17 +17,19 @@
 * Fixed backwalk speed
 * Removed player quotes
 
-## Box
-* First box setup on every map
+### Box
+* First box setup on every map (doesn't work in coop)
 * First hit will always be a raygun on maps that need it
-
-### HUD
-* Toggleable in game timer
-    /hud_timer 1
 
 ### Power Ups
 * Perk bottles always gives jug if you don't have it
 * First drop cycle of the game will always be double points, nuke, insta kill, max ammo
+
+### HUD
+* Toggleable in game timer
+```
+/hud_timer 1
+```
 
 ## Special Rounds
 ### Dogs
@@ -81,7 +83,7 @@
 * None
 
 
-## Huge shout out to:
+## Credits:
 * **_SE2Dev_** - For making LinkerMod
 * **_Nukem_** - For making LinkerMod
 * **_Treyarch_** - For making the best zombie game of all time
