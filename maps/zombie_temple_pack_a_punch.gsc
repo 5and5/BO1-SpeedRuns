@@ -39,6 +39,9 @@ init_pack_a_punch()
 	_setup_pap_timer();
 	_setup_pap_path();
 	_setup_pap_fx();
+
+
+	level.packed = false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -337,12 +340,18 @@ _randomize_pressure_plates(triggers)
 	// 1 = spawn
 	// 2 = power
 
+
 	rand_nums = array(1,2,3,4);
-	//rand_nums = array_randomize(rand_nums);
+	if(isDefined(level.packed))
+	{
+		rand_nums = array_randomize(rand_nums);
+	}
 	for(i=0;i<triggers.size;i++)
 	{
 		triggers[i].requiredPlayers = rand_nums[i];
 	}
+
+	level.packed = true;
 }
 
 _update_stairs(triggers)

@@ -1,4 +1,4 @@
-# Speed Running Mod
+# Black Ops 1 - Speed Running Mod
 
 ## Download
 
@@ -14,14 +14,16 @@
 
 
 ## General
-* Default fov is 75
 * Fixed backwalk speed
-* Disabled knife lunge
+* Removed player quotes
+
+## Box
+* First box setup on every map
+* First hit will always be a raygun on maps that need it
 
 ### HUD
-* Game timer
-* Zombie counter
-* Health bar
+* Toggleable in game timer
+    /hud_timer 1
 
 ### Power Ups
 * Perk bottles always gives jug if you don't have it
@@ -29,103 +31,55 @@
 
 ## Special Rounds
 ### Dogs
-* First dogs is always round 5
-* Always 4 rounds till next dogs
+* First dogs is always on round 5
+* The rest of the game will be all be 4 rounds
 ### Theif
 * First theif round is always the round after you turn on power
-* Always 4 rounds till next theif
+* The rest of the game will be all be 4 rounds
 ### Monkeys
 * First monkey round is always the round after you turn on power and have purchased a perk
-* Always 4 rounds till next monkeys
+* The rest of the game will be all be 4 rounds
 ### George
 * No longer shocks you
 * Always 4 rounds between Greoge max ammos
 
-## Box
-* First box hit will always be a raygun on maps that need it
 
-## Maps
+## Map RNG Changes
 
 ### Kino Der Toten
 * Initial box set to mpl
-
-#### Weapons in box
-    -Ray Gun
-    -Thunder Gun
-    -Monkeys
 
 ### Five
 * Windows set
 * Initial box set to two spawn
 
-#### Weapons in box
-    -Ray Gun
-    -Crossbow
-    -Winters Howl
-    -Monkeys
-
 ### Nacht Der Untoten
-#### Weapons in box
-    -Ray Gun
-    -Wonder waffe
-    -Monkeys
+* None
 
 ### Verruckt
-#### Weapons in box
-    -Ray Gun
-    -Winters Howl
-    -Dual CZ
-    -Monkeys
+* None
 
 ### Shi No Numa
 * Double tap is always in fishing hut
 
-#### Weapons in box
-    -Ray Gun
-    -Wonder Waffe
-    -Dual CZ
-    -Monkeys
-
 ### Der Riese
-#### Weapons in the box
-    -Ray Gun
-    -Wonder Waffe
-    -Monkeys
+* Raygun will be first hit on the second box
 
 ### Ascension
-#### Weapons in the box
-    -Ray Gun
-    -Thunder Gun
-    -Gershs
+* Perk bottle will always be jug if you don't have it
 
 ### Call of the Dead
 * Initial box set to mule kick
 * Disabled George shock from a distance
 
-#### Weapons in the box
-    -Ray Gun
-    -Scavenger
-    -VR-11
-    -Dolls
-
 ### Shangri-la
-* Night mode
 * Initial box set to waterfall
 * Initial perks locations set
 * Initial pack-a-punch stone set to spawn
 
-#### Weapons in the box
-    -Baby Gun
-    -Monkeys
+### Moon
+* None
 
-### Moon NML
-* Always jug
-* Initial spawn is 15 zombies instead of 10
-* Reduced no spawn time from 16 to 2 seconds
-
-# TODO
-* Change weapons to high probabality
-* Change second box
 
 ## Huge shout out to:
 * **_SE2Dev_** - For making LinkerMod

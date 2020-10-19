@@ -517,26 +517,27 @@ init_sounds()
 include_weapons()
 {
 	include_weapon("m1911_zm", false);
-	include_weapon("python_zm", false);
-	include_weapon("cz75_zm", false);
-	include_weapon("g11_lps_zm", false);
-	include_weapon("famas_zm", false);
-	include_weapon("spectre_zm", false);
-	include_weapon("cz75dw_zm", false);
-	include_weapon("spas_zm", false);
-	include_weapon("hs10_zm", false);
-	include_weapon("aug_acog_zm", false);
-	include_weapon("galil_zm", false);
-	include_weapon("commando_zm", false);
-	include_weapon("fnfal_zm", false);
-	include_weapon("dragunov_zm", false);
-	include_weapon("l96a1_zm", false);
-	include_weapon("rpk_zm", false);
-	include_weapon("hk21_zm", false);
-	include_weapon("m72_law_zm", false);
-	include_weapon("china_lake_zm", false);
-	include_weapon("crossbow_explosive_zm", false);
-	include_weapon("knife_ballistic_zm", false);
+	include_weapon("python_zm");
+	include_weapon("cz75_zm");
+	include_weapon("g11_lps_zm");
+	include_weapon("famas_zm");
+	include_weapon("spectre_zm");
+	include_weapon("cz75dw_zm");
+	include_weapon("spas_zm");
+	include_weapon("hs10_zm");
+	include_weapon("aug_acog_zm");
+	include_weapon("galil_zm");
+	include_weapon("commando_zm");
+	include_weapon("fnfal_zm");
+	include_weapon("dragunov_zm");
+	include_weapon("l96a1_zm");
+	include_weapon("rpk_zm");
+	include_weapon("hk21_zm");
+	include_weapon("m72_law_zm");
+	include_weapon("china_lake_zm");
+	include_weapon("zombie_cymbal_monkey");
+	include_weapon("crossbow_explosive_zm");
+	include_weapon("knife_ballistic_zm");
 	include_weapon("knife_ballistic_bowie_zm", false);
 
 	include_weapon("m1911_upgraded_zm", false);
@@ -596,7 +597,7 @@ include_weapons()
 	include_weapon( "zombie_fg42_upgraded", false );
 
 	// Special
-	include_weapon( "ray_gun_zm", true, false, maps\_zombiemode_weapons::default_ray_gun_weighting_func );
+	include_weapon( "ray_gun_zm", true, false, ::factory_ray_gun_weighting_func );
 	include_weapon( "ray_gun_upgraded_zm", false );
 	include_weapon( "tesla_gun_zm", true );
 	include_weapon( "tesla_gun_upgraded_zm", false );
@@ -651,6 +652,39 @@ include_weapons()
 
 	// Bipods
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_bar_bipod", 	"",					&"WAW_ZOMBIE_WEAPON_BAR_BIPOD_2500", 			2500,	"mg" );
+}
+
+
+factory_ray_gun_weighting_func()
+{
+	if( level.chest_moves > 0 )
+	{
+		if(level.round_number < 20)
+		{
+			return 99;
+		}
+
+		num_to_add = 1;
+		// increase the percentage of ray gun
+		if( isDefined( level.pulls_since_last_ray_gun ) )
+		{
+			// after 12 pulls the ray gun percentage increases to 15%
+			if( level.pulls_since_last_ray_gun > 11 )
+			{
+				num_to_add += int(level.zombie_include_weapons.size*0.1);
+			}
+			// after 8 pulls the Ray Gun percentage increases to 10%
+			else if( level.pulls_since_last_ray_gun > 7 )
+			{
+				num_to_add += int(.05 * level.zombie_include_weapons.size);
+			}
+		}
+		return num_to_add;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 

@@ -1846,6 +1846,106 @@ treasure_chest_ChooseWeightedRandomWeapon( player )
 {
 	keys = GetArrayKeys( level.zombie_weapons );
 
+
+
+	//raygun
+	if(level.script != "zombie_temple" && level.script != "zombie_moon" && level.script != "zombie_cod5_factory")
+	{
+		if(!player has_weapon_or_upgrade("ray_gun_zm") && level.round_number < 20)
+		{
+			return "ray_gun_zm";
+		}
+	}
+
+	//tgun
+	if(level.script == "zombie_theater" || level.script == "zombie_cosmodrome" || level.script == "zombie_cod5_prototype")
+	{
+		if(!player has_weapon_or_upgrade("thundergun_zm") && level.round_number < 20)
+		{
+			return "thundergun_zm";
+		}
+	}
+
+	//waffe
+	if(level.script == "zombie_cod5_sumpf" || level.script == "zombie_cod5_factory")
+	{
+		if(!player has_weapon_or_upgrade("tesla_gun_zm") && level.round_number < 20)
+		{
+			return "tesla_gun_zm";
+		}
+	}
+
+	//freezegun
+	if(level.script == "zombie_cod5_asylum")
+	{
+		if(!player has_weapon_or_upgrade("freezegun_zm") && level.round_number < 20)
+		{
+			return "freezegun_zm";
+		}
+	}
+
+	//crossbow
+	if(level.script == "zombie_pentagon")
+	{
+		if(!player has_weapon_or_upgrade("crossbow_explosive_zm") && level.round_number < 20)
+		{
+			return "crossbow_explosive_zm";
+		}
+	}
+
+	//scav + dolls
+	if(level.script == "zombie_coast")
+	{
+		if(!player has_weapon_or_upgrade("sniper_explosive_zm") && level.round_number < 20)
+		{
+			return "sniper_explosive_zm";
+		}
+
+		if(!player has_weapon_or_upgrade("zombie_nesting_dolls") && level.round_number < 20)
+		{
+			return "zombie_nesting_dolls";
+		}
+	}
+
+	//babygun
+	if(level.script == "zombie_temple")
+	{
+		if(!player has_weapon_or_upgrade("shrink_ray_zm") && level.round_number < 20)
+		{
+			return "shrink_ray_zm";
+		}
+	}
+
+	//wavegun
+	if(level.script == "zombie_moon")
+	{
+		if(!player has_weapon_or_upgrade("microwavegundw_zm") && level.round_number < 20)
+		{
+			return "microwavegundw_zm";
+		}
+	}
+
+	//monkeys
+	if(level.script != "zombie_cosmodrome" && level.script != "zombie_coast" && level.script != "zombie_moon")
+	{
+		if(!player has_weapon_or_upgrade("zombie_cymbal_monkey") && level.round_number < 20)
+		{
+			return "zombie_cymbal_monkey";
+		}
+	}
+
+	//gersh
+	if(level.script == "zombie_cosmodrome" || level.script == "zombie_moon")
+	{
+		if(!player has_weapon_or_upgrade("zombie_black_hole_bomb") && level.round_number < 20)
+		{
+			return "zombie_black_hole_bomb";
+		}
+	}
+
+
+
+
 	toggle_weapons_in_use = 0;
 	// Filter out any weapons the player already has
 	filtered = [];

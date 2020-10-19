@@ -185,6 +185,8 @@ main()
 	#/
 
 	level thread maps\_zombiemode_ffotd::main_end();
+
+	thread disable_player_quotes();
 }
 
 post_all_players_connected()
@@ -1543,7 +1545,6 @@ onPlayerConnect_clientDvars()
 		"compass", "0",
 		"hud_showStance", "0",
 		"cg_thirdPerson", "0",
-		"cg_fov", "75",
 		"cg_thirdPersonAngle", "0",
 		"ammoCounterHide", "1",
 		"miniscoreboardhide", "1",
@@ -1556,17 +1557,20 @@ onPlayerConnect_clientDvars()
 	// Enabling the FPS counter in ship for now
 	//self setclientdvar( "cg_drawfps", "1" );
 
-	self setClientDvar( "aim_lockon_pitch_strength", 0.0 );
-
-	// allows shooting while looking at players
-	self SetClientDvar("g_friendlyFireDist", 0);
-
-	// ammo on HUD never fades away
-	self SetClientDvar("hud_fade_ammodisplay", 0);
+	self setClientDvar("aim_lockon_pitch_strength", 0.0 );
 
 	if(!level.wii)
 	{
 		//self SetClientDvar("r_enablePlayerShadow", 1);
+	}
+
+	if(getDvarInt("hud_timer") == 1)
+	{
+		self setClientDvar("hud_timer", 1);
+	}
+	else
+	{
+		self setClientDvar("hud_timer", 0);
 	}
 }
 
@@ -1688,15 +1692,6 @@ onPlayerSpawned()
 				self thread player_monitor_travel_dist();
 
 				self thread player_grenade_watcher();
-
-				// custom hud
-				self thread zombies_remaining_hud();
-				//self thread drop_icon_tracker_hud();
-				self thread drop_tracker_hud();
-				//self thread health_bar_hud();
-				//self thread timer_hud();
-				//self thread snn_trap_hud();
-
 			}
 		}
 	}
@@ -3917,10 +3912,13 @@ chalk_round_over()
 
 round_think()
 {
-    // level.round_number = 99; //69
-    // level.zombie_vars["zombie_spawn_delay"] = .08;
-    // level.zombie_move_speed = 105;
-    // level.first_round = false;
+	// strat tester
+ //    level.round_number = 10; //69
+ //    level.zombie_vars["zombie_spawn_delay"] = .08;
+ //    level.zombie_move_speed = 105;
+ //    level.first_round = false;
+ //    players = get_players();
+	// players[0].score = 5555555;
 
 	for( ;; )
 	{
@@ -6595,153 +6593,17 @@ set_sidequest_completed(id)
 
 
 /*
-* Custom HUD
+* Custom func
 */
-update_powerup_hud( Shader, PowerUp_Hud, X_Position, index)
-{
-	self endon("disconnect");
-	self endon("end_game");
 
-	while(1)
-	{
-		if( level.powerup_hud_array[index] == true )
-		{
-			PowerUp_Hud.x = X_Position;
-			PowerUp_Hud.alpha = 1;
-			PowerUp_Hud setshader(Shader, 14, 14);
-		}
-		else
-		{
-			PowerUp_Hud.alpha = 0;
-		}
-
-		wait( 0.05 );
-	}
-}
-
-drop_icon_tracker_hud()
-{
-	self endon("disconnect");
-	self endon("end_game");
-
-	hud_wait();
-
-	level.powerup_hud_array = [];
-	level.powerup_hud_array[0] = true;
-	level.powerup_hud_array[1] = true;
-	level.powerup_hud_array[2] = true;
-	level.powerup_hud_array[3] = true;
-
-	level.powerup_hud = [];
-
-	for(i = 0; i < level.powerup_hud_array.size; i++)
-	{
-
-		level.powerup_hud[i] = create_hud("left", "top");
-		level.powerup_hud[i].foreground = true;
-		level.powerup_hud[i].sort = 2;
-		level.powerup_hud[i].y += 21; // ww: used to offset by - 78
-		level.powerup_hud[i].x += 5;
-		level.powerup_hud[i].alpha = 0.8;
-	}
-
-	level thread update_powerup_hud( "specialty_doublepoints_zombies", level.powerup_hud[0], 5, 0 );
-	level thread update_powerup_hud( "specialty_instakill_zombies", level.powerup_hud[1], 21, 1 );
-	level thread update_powerup_hud( "specialty_firesale_zombies", level.powerup_hud[2], 37, 2 );
-	level thread update_powerup_hud( "specialty_maxammo_zombies", level.powerup_hud[3], 53, 2 );
-}
-
-zombies_remaining_hud()
-{
-	level endon("disconnect");
-	level endon("end_game");
-
-	hud_wait();
-
-	remaining_hud = create_hud("left", "top");
-	remaining_hud.y += 2;
-	remaining_hud.x += 5;
-	remaining_hud.label = "Remaining: ";
-
-	hud_fade_in(remaining_hud);
-	self thread hud_end(remaining_hud);
-
-	while(1)
-	{
-		zombies = level.zombie_total + get_enemy_count();
-		remaining_hud setValue(zombies);
-		wait 0.05;
-	}
-}
-
-snn_trap_hud()
-{
-	level endon("disconnect");
-	level endon("end_game");
-
-	hud_wait();
-
-	inside_hud = create_hud("right", "top");
-	inside_hud.y += 2;
-	inside_hud.x -= 5;
-	inside_hud.label = "inside switch: ";
-
-	outside_hud = create_hud("right", "top");
-	outside_hud.y += 12;
-	outside_hud.x -= 5;
-	outside_hud.label = "outside switch: ";
-
-	hud_fade_in(inside_hud);
-	hud_fade_in(outside_hud);
-
-	while(1)
-	{
-		// zombies = level.zombie_total + get_enemy_count();
-		// remaining_hud setValue(zombies);
-		// wait 0.05;
-		if(level.inside_in_use)
-		{
-			inside_hud setTimer(90);
-		}
-
-		if(level.outside_in_use)
-		{
-			outside_hud setTimer(90);
-
-		}
-
-		wait(0.05);
-	}
-}
-
-drop_tracker_hud()
-{
-	self endon("disconnect");
-	self endon("end_game");
-
-	hud_wait();
-
-	drops_hud = create_hud( "left", "top" );
-	drops_hud.y += 19;
-	drops_hud.x += 5;
-	drops_hud.label = "Drops: ";
-
-	hud_fade_in(drops_hud);
-	self thread hud_end(drops_hud);
-
-	while(1)
-	{
-		drops_hud setValue(level.drop_tracker_index);
-		wait 0.05;
-	}
-}
 
 timer_hud()
 {
 	self endon("disconnect");
 	self endon("end_game");
 
-	hud_wait();
+	flag_wait( "all_players_spawned" );
+	wait 3.15;
 
 	timer = NewHudElem();
 	timer.horzAlign = "right";
@@ -6754,116 +6616,40 @@ timer_hud()
 	timer.fontScale = 1.4;
 	timer.alpha = 0;
 	timer.color = ( 1.0, 1.0, 1.0 );
-	level.hudelem_count++;
 
-	hud_fade_in(timer);
-	self thread hud_end(timer);
 
 	if (level.script == "zombie_cosmodrome")
 	{
-		timer SetTimerUp(7.5);
+		timer SetTimerUp(6.4);
 	} else
-	timer SetTimerUp(1.1);
-}
+	timer SetTimerUp(0);
 
-health_bar_hud()
-{
-	self endon("disconnect");
-	self endon("end_game");
-
-	hud_wait();
-
-	width = 113;
-	height = 6;
-
-	barElem = newClientHudElem(	self );
-	barElem.horzAlign = "left";
-	barElem.vertAlign = "bottom";
-	barElem.alignX = "left";
-	barElem.alignY = "bottom";
-	barElem.x = 1;
-	barElem.y = -101;
-	barElem.width = width;
-	barElem.height = height;
-	barElem.color = (1, 1, 1);
-	barElem.alpha = 0;
-	barElem.shader = "white";
-	barElem setShader( "white", width, height );
-	barElem.hidden = false;
-	level.hudelem_count++;
-	barElem.hidewheninmenu = 1;
-
-	health_text = create_hud( "left", "bottom");
-	health_text.x = 49;
-	health_text.y = -107;
-
-	hud_fade_in(health_text);
-	hud_fade_in(barElem);
-
-	self thread hud_end(health_text);
-	self thread hud_end(barElem);
-
-	while (1)
+	while(1)
 	{
-		barElem updateHealth(self.health / self.maxhealth);
-		health_text setValue(self.health);
-
-		if(is_true( self.waiting_to_revive ))
+		if(getDvarInt( "hud_timer" ) == 0)
 		{
-			barElem.alpha = 0;
-			health_text.alpha = 0;
-
-			wait 0.05;
-			continue;
+			if(timer.alpha != 0)
+			{
+				timer.alpha = 0;
+			}
 		}
-
-		if (health_text.alpha != 1)
-        {
-            barElem.alpha = 1;
-			health_text.alpha = 1;
-        }
-
-		wait 0.05;
+		else
+		{
+			if(timer.alpha != 1)
+			{
+				timer.alpha = 1;
+			}
+		}
+		wait 0.1;
 	}
 }
 
-updateHealth( barFrac )
+disable_player_quotes()
 {
-	barWidth = int(self.width * barFrac);
-	self setShader( self.shader, barWidth, self.height );
-}
-
-create_hud( side, top )
-{
-	hud = NewClientHudElem( self );
-	hud.horzAlign = side;
-	hud.vertAlign = top;
-	hud.alignX = side;
-	hud.alignY = top;
-	hud.alpha = 0;
-	hud.fontScale = 1.4;
-	hud.color = ( 1.0, 1.0, 1.0 );
-	hud.hidewheninmenu = 1;
-	level.hudelem_count++;
-
-	return hud;
-}
-
-hud_wait()
-{
-	flag_wait( "all_players_spawned" );
-	wait 2;
-}
-
-hud_end( hud )
-{
-	level waittill ( "end_game" );
-	hud destroy_hud();
-}
-
-hud_fade_in( hud )
-{
-	hud fadeOverTime(0.5);
-	hud.alpha = 1;
+	while(1)
+	{
+		level.player_is_speaking = 1;
+		wait 0.1;
+	}
 }
 

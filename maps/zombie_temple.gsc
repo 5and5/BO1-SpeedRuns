@@ -311,9 +311,9 @@ include_weapons()
 	//	Weapons - Pistols
 	include_weapon( "m1911_zm", false );						// colt
 	include_weapon( "m1911_upgraded_zm", false );
-	include_weapon( "python_zm", false );								// 357
+	include_weapon( "python_zm" );								// 357
 	include_weapon( "python_upgraded_zm", false );
-	include_weapon( "cz75_zm", false);
+	include_weapon( "cz75_zm");
     include_weapon( "cz75_upgraded_zm", false );
 
 	//	Weapons - Semi-Auto Rifles
@@ -323,9 +323,9 @@ include_weapons()
 	//	Weapons - Burst Rifles
 	include_weapon( "m16_zm", false, true );
 	include_weapon( "m16_gl_upgraded_zm", false );
-	include_weapon( "g11_lps_zm", false );
+	include_weapon( "g11_lps_zm" );
 	include_weapon( "g11_lps_upgraded_zm", false );
-	include_weapon( "famas_zm", false );
+	include_weapon( "famas_zm" );
 	include_weapon( "famas_upgraded_zm", false );
 
 	//	Weapons - SMGs
@@ -341,7 +341,7 @@ include_weapons()
 	include_weapon( "spectre_upgraded_zm", false );
 
 	//	Weapons - Dual Wield
-  	include_weapon( "cz75dw_zm", false );
+  	include_weapon( "cz75dw_zm" );
   	include_weapon( "cz75dw_upgraded_zm", false );
 
 	//	Weapons - Shotguns
@@ -349,37 +349,37 @@ include_weapons()
 	include_weapon( "ithaca_upgraded_zm", false );
 	include_weapon( "rottweil72_zm", false, true );
 	include_weapon( "rottweil72_upgraded_zm", false );
-	include_weapon( "spas_zm", false );
+	include_weapon( "spas_zm" );
 	include_weapon( "spas_upgraded_zm", false );
-	include_weapon( "hs10_zm", false );
+	include_weapon( "hs10_zm" );
 	include_weapon( "hs10_upgraded_zm", false );
 
 	//	Weapons - Assault Rifles
-	include_weapon( "aug_acog_zm", false );
+	include_weapon( "aug_acog_zm" );
 	include_weapon( "aug_acog_mk_upgraded_zm", false );
-	include_weapon( "galil_zm", false );
+	include_weapon( "galil_zm" );
 	include_weapon( "galil_upgraded_zm", false );
-	include_weapon( "commando_zm", false );
+	include_weapon( "commando_zm" );
 	include_weapon( "commando_upgraded_zm", false );
-	include_weapon( "fnfal_zm", false );
+	include_weapon( "fnfal_zm" );
 	include_weapon( "fnfal_upgraded_zm", false );
 
 	//	Weapons - Sniper Rifles
-	include_weapon( "dragunov_zm", false );							// ptrs41
+	include_weapon( "dragunov_zm" );							// ptrs41
 	include_weapon( "dragunov_upgraded_zm", false );
-	include_weapon( "l96a1_zm", false );
+	include_weapon( "l96a1_zm" );
 	include_weapon( "l96a1_upgraded_zm", false );
 
 	//	Weapons - Machineguns
-	include_weapon( "rpk_zm", false );									// mg42, 30 cal, ppsh
+	include_weapon( "rpk_zm" );									// mg42, 30 cal, ppsh
 	include_weapon( "rpk_upgraded_zm", false );
-	include_weapon( "hk21_zm", false );
+	include_weapon( "hk21_zm" );
 	include_weapon( "hk21_upgraded_zm", false );
 
 	//	Weapons - Misc
-	include_weapon( "m72_law_zm", false );
+	include_weapon( "m72_law_zm" );
 	include_weapon( "m72_law_upgraded_zm", false );
-	include_weapon( "china_lake_zm", false );
+	include_weapon( "china_lake_zm" );
 	include_weapon( "china_lake_upgraded_zm", false );
 
 	//	Weapons - Special
@@ -389,9 +389,9 @@ include_weapons()
 	include_weapon( "shrink_ray_zm", true , false );
 	include_weapon( "shrink_ray_upgraded_zm", false );
 
-	include_weapon( "crossbow_explosive_zm", false );
+	include_weapon( "crossbow_explosive_zm" );
 	include_weapon( "crossbow_explosive_upgraded_zm", false );
-	include_weapon( "knife_ballistic_zm", false );
+	include_weapon( "knife_ballistic_zm" );
 	include_weapon( "knife_ballistic_upgraded_zm", false );
 	include_weapon( "knife_ballistic_bowie_zm", false );
 	include_weapon( "knife_ballistic_bowie_upgraded_zm", false );
@@ -1154,14 +1154,4 @@ temple_revive_solo_fx()
 			break;
 		}
 	}
-}
-
-activate_night()
-{
-    flag_wait("all_players_spawned");
-    wait 1.8;
-
-	SetSunlight( 0.5426, 0.6538, 0.7657);
-	SetSavedDvar("r_lightTweakSunLight", 11);
-	SetSavedDvar("r_skyTransition", 1);
 }

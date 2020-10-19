@@ -1,4 +1,4 @@
-#include common_scripts\utility;
+#include common_scripts\utility; 
 #include maps\_utility;
 #include maps\_music;
 #include maps\zombie_cod5_sumpf_perks;
@@ -20,7 +20,7 @@ main()
 	PreCacheModel( "viewmodel_usa_hazmat_arms" );// Richtofen
 
 	level thread maps\_callbacksetup::SetupCallbacks();
-
+	
 	// make sure we randomize things in the map once
 	level.randomize_perks = false;
 	//level.exit_level_func = ::sumpf_exit_level;
@@ -35,10 +35,10 @@ main()
 
 	// enable for zombie risers within active player zones
 	level.zombie_rise_spawners = [];
-
+	
 	// JV contains zombies allowed to be on fire
 	level.burning_zombies = [];
-
+	
 	level.use_zombie_heroes = true;
 
 	level.kzmb_name = "sumpf_kzmb";
@@ -47,7 +47,7 @@ main()
 	precachemodel("zombie_zapper_cagelight_red");
 	precachemodel("zombie_zapper_cagelight_green");
 	precacheshellshock("electrocution");
-
+	
 	//JV - shellshock for player zipline damage
 	precacheshellshock("death");
 
@@ -57,7 +57,7 @@ main()
 	// DCS: switching over to use structs.
 	level.dog_spawn_func = maps\_zombiemode_ai_dogs::dog_spawn_factory_logic;
 
-
+	
 	// bring over the custom anims for the japanese zombies
 	level.custom_ai_type = [];
 	level.custom_ai_type = array_add( level.custom_ai_type, maps\_waw_zombiemode_ai_japanese::init );
@@ -70,7 +70,7 @@ main()
 
 	level._effect["zombie_grain"]			= LoadFx( "misc/fx_zombie_grain_cloud" );
 
-	maps\_waw_zombiemode_radio::init();
+	maps\_waw_zombiemode_radio::init();	
 
 	level.zombiemode_precache_player_model_override = ::precache_player_model_override;
 	level.zombiemode_give_player_model_override = ::give_player_model_override;
@@ -93,10 +93,10 @@ main()
 	init_zombie_sumpf();
 	init_sounds();
 
-
+	
 	//DCS: get betties working.
 	maps\_zombiemode_betty::init();
-
+	
 	// Set the color vision set back
 	level.zombie_visionset = "zombie_sumpf";
 
@@ -105,16 +105,16 @@ main()
 	level notify("setup_rope");
 
 	level.has_pack_a_punch = false;
-
+	
 	SetSavedDvar("sv_maxPhysExplosionSpheres", 15);
-
+	
 	//added for performance concerns- not in waw
 	SetCullDist( 2400 );
-
+	
 	SetSavedDvar( "r_lightGridEnableTweaks", 1 );
 	SetSavedDvar( "r_lightGridIntensity", 1.25 );
 	SetSavedDvar( "r_lightGridContrast", .1 );
-
+	
 	VisionSetNaked("zombie_sumpf", 0);
 }
 
@@ -126,7 +126,7 @@ setup_water_physics()
   {
 		players[i] SetClientDvars("phys_buoyancy",1);
 	}
-}
+}	
 //-------------------------------------------------------------------------------
 // Zone Management.
 //-------------------------------------------------------------------------------
@@ -135,31 +135,31 @@ sumpf_zone_init()
 	flag_init( "always_on" );
 	flag_set( "always_on" );
 
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_upstairs", "center_building_upstairs_buy", "unlock_hospital_upstairs" );
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_upstairs", "center_building_upstairs_buy", "unlock_hospital_upstairs" );	
 	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_upstairs", "center_building_combined", "unlock_hospital_downstairs" );
 
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_upstairs_buy", "center_building_combined", "unlock_hospital_upstairs" );
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_upstairs_buy", "center_building_combined", "unlock_hospital_downstairs" );
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_upstairs_buy", "center_building_combined", "unlock_hospital_upstairs" );	
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_upstairs_buy", "center_building_combined", "unlock_hospital_downstairs" );	
 
 
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "northeast_outside", "ne_magic_box" );
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "northwest_outside", "nw_magic_box" );
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "southeast_outside", "se_magic_box" );
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "southwest_outside", "sw_magic_box" );
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "northeast_outside", "ne_magic_box" );	
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "northwest_outside", "nw_magic_box" );	
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "southeast_outside", "se_magic_box" );	
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "center_building_combined", "southwest_outside", "sw_magic_box" );	
 
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "northeast_outside", "northeast_building", "northeast_building_unlocked" );
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "northwest_outside", "northwest_building", "northwest_building_unlocked" );
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "southeast_outside", "southeast_building", "southeast_building_unlocked" );
-	maps\_zombiemode_zone_manager::add_adjacent_zone( "southwest_outside", "southwest_building", "southwest_building_unlocked" );
-}
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "northeast_outside", "northeast_building", "northeast_building_unlocked" );	
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "northwest_outside", "northwest_building", "northwest_building_unlocked" );	
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "southeast_outside", "southeast_building", "southeast_building_unlocked" );	
+	maps\_zombiemode_zone_manager::add_adjacent_zone( "southwest_outside", "southwest_building", "southwest_building_unlocked" );	
+}	
 
 //-------------------------------------------------------------------------------
 init_sounds()
 {
 	maps\_zombiemode_utility::add_sound( "wooden_door", "zmb_door_wood_open" );
-
+	
 	iprintlnbold ("init_audio");
-
+	
 	level thread toilet_useage();
 	level thread radio_one();
 	level thread radio_two();
@@ -174,7 +174,7 @@ init_sounds()
 	level thread superegg_two();
 	level thread superegg_three();
 	level thread super_egg();
-
+	
 }
 
 precache_player_model_override()
@@ -202,7 +202,7 @@ give_player_model_override( entity_num )
 			break;
 		case 3:
 			character\c_ger_richtofen_zt::main();// Richtofen
-			break;
+			break;	
 	}
 }
 
@@ -225,7 +225,7 @@ player_set_viewmodel_override( entity_num )
 		case 3:
 			// Richtofen
 			self SetViewModel( "viewmodel_usa_hazmat_arms" );
-			break;
+			break;		
 	}
 }
 
@@ -252,28 +252,28 @@ register_offhand_weapons_for_level_defaults_override()
 include_weapons()
 {
 	include_weapon( "m1911_zm", false );						// colt
-	include_weapon("python_zm", false);
-	include_weapon("cz75_zm", false);
-	include_weapon("g11_lps_zm", false);
-	include_weapon("famas_zm", false);
-	include_weapon("spectre_zm", false);
+	include_weapon("python_zm");
+	include_weapon("cz75_zm");
+	include_weapon("g11_lps_zm");
+	include_weapon("famas_zm");
+	include_weapon("spectre_zm");
 	include_weapon("cz75dw_zm");
-	include_weapon("spas_zm", false);
-	include_weapon("hs10_zm", false);
-	include_weapon("aug_acog_zm", false);
-	include_weapon("galil_zm", false);
-	include_weapon("commando_zm", false);
-	include_weapon("fnfal_zm", false);
-	include_weapon("dragunov_zm", false);
-	include_weapon("l96a1_zm", false);
-	include_weapon("rpk_zm", false);
-	include_weapon("hk21_zm", false);
-	include_weapon("m72_law_zm", false);
-	include_weapon("china_lake_zm", false);
+	include_weapon("spas_zm");
+	include_weapon("hs10_zm");
+	include_weapon("aug_acog_zm");
+	include_weapon("galil_zm");
+	include_weapon("commando_zm");
+	include_weapon("fnfal_zm");
+	include_weapon("dragunov_zm");
+	include_weapon("l96a1_zm");
+	include_weapon("rpk_zm");
+	include_weapon("hk21_zm");
+	include_weapon("m72_law_zm");
+	include_weapon("china_lake_zm");
 	include_weapon("zombie_cymbal_monkey");
-	include_weapon("ray_gun_zm", true , false, maps\_zombiemode_weapons::default_ray_gun_weighting_func );
-	include_weapon("crossbow_explosive_zm", false);
-	include_weapon("knife_ballistic_zm", false);
+	include_weapon("ray_gun_zm");
+	include_weapon("crossbow_explosive_zm");
+	include_weapon("knife_ballistic_zm");
 
 	// Bolt Action
 	include_weapon( "zombie_type99_rifle", false, true);
@@ -295,13 +295,15 @@ include_weapons()
 
 	// Heavy MG
 	include_weapon( "zombie_bar", false, true );
-
+	
 	// Special
-	include_weapon( "tesla_gun_zm", true , false);
+	include_weapon( "tesla_gun_zm" );
 	include_weapon( "m1911_upgraded_zm", false );
 
 	//bouncing betties
 	include_weapon("mine_bouncing_betty", false, true );
+
+	include_weapon( "zombie_cymbal_monkey");
 
 	level._uses_retrievable_ballisitic_knives = true;
 
@@ -312,40 +314,40 @@ include_weapons()
 	maps\_zombiemode_weapons::add_limited_weapon( "knife_ballistic_zm", 1 );
 
 	precacheItem( "explosive_bolt_zm" );
-	precacheItem( "explosive_bolt_upgraded_zm" );
+	precacheItem( "explosive_bolt_upgraded_zm" );	
 
 
 
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_kar98k", "zombie_kar98k_upgraded", 						&"WAW_ZOMBIE_WEAPON_KAR98K_200", 				200,	"rifle");
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_type99_rifle", "",					&"WAW_ZOMBIE_WEAPON_TYPE99_200", 			    200,	"rifle" );
 
-	// Semi Auto
+	// Semi Auto                                        		
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_gewehr43", "zombie_gewehr43_upgraded",						&"WAW_ZOMBIE_WEAPON_GEWEHR43_600", 				600,	"rifle" );
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_m1carbine","zombie_m1carbine_upgraded",						&"WAW_ZOMBIE_WEAPON_M1CARBINE_600",				600,	"rifle" );
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_m1garand", "zombie_m1garand_upgraded" ,						&"WAW_ZOMBIE_WEAPON_M1GARAND_600", 				600,	"rifle" );
 
 	maps\_zombiemode_weapons::add_zombie_weapon( "stielhandgranate", "", 						&"WAW_ZOMBIE_WEAPON_STIELHANDGRANATE_250", 		250,	"grenade", "", 250 );
-	maps\_zombiemode_weapons::add_zombie_weapon( "mine_bouncing_betty", "", &"WAW_ZOMBIE_WEAPON_SATCHEL_2000", 2000 );
+	maps\_zombiemode_weapons::add_zombie_weapon( "mine_bouncing_betty", "", &"WAW_ZOMBIE_WEAPON_SATCHEL_2000", 2000 );		
 	// Scoped
 	maps\_zombiemode_weapons::add_zombie_weapon( "kar98k_scoped_zombie", "", 					&"WAW_ZOMBIE_WEAPON_KAR98K_S_750", 				750,	"sniper");
 
-	// Full Auto
+	// Full Auto                                                                                	
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_stg44", "zombie_stg44_upgraded", 							    &"WAW_ZOMBIE_WEAPON_STG44_1200", 				1200, "mg" );
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_thompson", "zombie_thompson_upgraded", 							&"WAW_ZOMBIE_WEAPON_THOMPSON_1200", 			1200, "mg" );
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_type100_smg", "zombie_type100_smg_upgraded", 						&"WAW_ZOMBIE_WEAPON_TYPE100_1000", 				1000, "mg" );
 
-	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_fg42", "zombie_fg42_upgraded", 							&"WAW_ZOMBIE_WEAPON_FG42_1500", 				1500,	"mg" );
+	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_fg42", "zombie_fg42_upgraded", 							&"WAW_ZOMBIE_WEAPON_FG42_1500", 				1500,	"mg" ); 
 
 
-	// Shotguns
+	// Shotguns                                         	
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_doublebarrel", "zombie_doublebarrel_upgraded", 						&"WAW_ZOMBIE_WEAPON_DOUBLEBARREL_1200", 		1200, "shotgun");
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_doublebarrel_sawed", "", 			    &"WAW_ZOMBIE_WEAPON_DOUBLEBARREL_SAWED_1200", 	1200, "shotgun");
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_shotgun", "zombie_shotgun_upgraded",							&"WAW_ZOMBIE_WEAPON_SHOTGUN_1500", 				1500, "shotgun");
 
 	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_bar", "zombie_bar_upgraded", 						&"WAW_ZOMBIE_WEAPON_BAR_1800", 					1800,	"mg" );
 
-	// Bipods
-	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_bar_bipod", 	"",					&"WAW_ZOMBIE_WEAPON_BAR_BIPOD_2500", 			2500,	"mg" );
+	// Bipods                               				
+	maps\_zombiemode_weapons::add_zombie_weapon( "zombie_bar_bipod", 	"",					&"WAW_ZOMBIE_WEAPON_BAR_BIPOD_2500", 			2500,	"mg" ); 
 }
 
 include_powerups()
@@ -360,29 +362,29 @@ include_powerups()
 init_zombie_sumpf()
 {
 	// Setup the magic box
-	thread maps\zombie_cod5_sumpf_magic_box::magic_box_init();
-
+	thread maps\zombie_cod5_sumpf_magic_box::magic_box_init();	
+	
 	//ESM - new electricity traps
 	level thread maps\zombie_cod5_sumpf_trap_perk_electric::init_elec_trap_trigs();
-
+	
 	// JMA - setup zipline deactivated trigger
 	zipHintDeactivated = getent("zipline_deactivated_hint_trigger", "targetname");
 	zipHintDeactivated sethintstring(&"WAW_ZOMBIE_ZIPLINE_DEACTIVATED");
 	zipHintDeactivated SetCursorHint("HINT_NOICON");
-
+	
 	// JMA - setup log trap clear debris hint string
 	penBuyTrigger = getentarray("pendulum_buy_trigger","targetname");
-
+	
 	if ( !level.mutators["mutator_noTraps"] )
 	{
 		for(i = 0; i < penBuyTrigger.size; i++)
-		{
+		{		
 			penBuyTrigger[i] sethintstring( &"WAW_ZOMBIE_CLEAR_DEBRIS" );
 			penBuyTrigger[i] setCursorHint( "HINT_NOICON" );
 		}
-
+	
 		//turning on the lights for the pen trap
-		level thread maps\zombie_cod5_sumpf::turnLightRed("pendulum_light");
+		level thread maps\zombie_cod5_sumpf::turnLightRed("pendulum_light");	
 	}
 }
 
@@ -393,13 +395,13 @@ turnLightGreen(name)
 	zapper_lights = getentarray(name,"targetname");
 	for(i=0;i<zapper_lights.size;i++)
 	{
-		zapper_lights[i] setmodel("zombie_zapper_cagelight_green");
+		zapper_lights[i] setmodel("zombie_zapper_cagelight_green");	
 		if (isDefined(zapper_lights[i].target))
 		{
 			old_light_effect = getent(zapper_lights[i].target, "targetname");
 			light_effect = spawn("script_model",zapper_lights[i].origin + (0, 0, 10));
 			//light_effect = spawn("script_model",zapper_lights[i].origin);
-			light_effect setmodel("tag_origin");
+			light_effect setmodel("tag_origin");	
 			light_effect.angles = (0,270,0);
 			light_effect.targetname = "effect_" + name + i;
 			old_light_effect delete();
@@ -414,13 +416,13 @@ turnLightRed(name)
 	zapper_lights = getentarray(name,"targetname");
 	for(i=0;i<zapper_lights.size;i++)
 	{
-		zapper_lights[i] setmodel("zombie_zapper_cagelight_red");
+		zapper_lights[i] setmodel("zombie_zapper_cagelight_red");	
 		if (isDefined(zapper_lights[i].target))
 		{
 			old_light_effect = getent(zapper_lights[i].target, "targetname");
 			light_effect = spawn("script_model",zapper_lights[i].origin + (0, 0, 10));
 			//light_effect = spawn("script_model",zapper_lights[i].origin);
-			light_effect setmodel("tag_origin");
+			light_effect setmodel("tag_origin");	
 			light_effect.angles = (0,270,0);
 			light_effect.targetname = "effect_" + name + i;
 			old_light_effect delete();
@@ -440,24 +442,24 @@ book_useage()
 	{
 		maniac_l = getent("maniac_l", "targetname");
 		maniac_r = getent("maniac_r", "targetname");
-
+		
 		book_trig waittill( "trigger", player );
-
+		
 		if(IsDefined(maniac_l))
 		{
 			maniac_l playsound("maniac_l");
-
+			
 		}
 		if(IsDefined(maniac_r))
 		{
 			maniac_r playsound("maniac_r");
-
+			
 		}
-
-	}
+		
+	}	
 }
-
-
+	
+	
 toilet_useage()
 {
 
@@ -465,14 +467,14 @@ toilet_useage()
 	toilet_trig = getent("toilet", "targetname");
 	toilet_trig SetCursorHint( "HINT_NOICON" );
 	toilet_trig UseTriggerRequireLookAt();
-
+	
 //	off_the_hook = spawn ("script_origin", toilet_trig.origin);
 	toilet_trig playloopsound ("phone_hook");
-
+	
 	if (!IsDefined (level.music_override))
 	{
 		level.music_override = false;
-	}
+	}	
 
 	toilet_trig waittill( "trigger", player );
 	toilet_trig stoploopsound(0.5);
@@ -495,9 +497,9 @@ toilet_useage()
 	toilet_trig playsound("riiing");
 	wait(1);
 	toilet_trig playsound("riiing");
-	wait(1);
-	toilet_trig playsound ("toilet_flush", "sound_done");
-	toilet_trig waittill ("sound_done");
+	wait(1);			
+	toilet_trig playsound ("toilet_flush", "sound_done");				
+	toilet_trig waittill ("sound_done");				
 	playsoundatposition ("zmb_cha_ching", toilet_trig.origin);
 
 	level thread play_music_easter_egg(player);
@@ -507,15 +509,15 @@ play_music_easter_egg(player)
 {
 	level.music_override = true;
 	level thread maps\_zombiemode_audio::change_zombie_music( "egg" );
-
+	
 	wait(4);
-
+	
 	if( IsDefined( player ) )
 	{
 	    player maps\_zombiemode_audio::create_and_play_dialog( "eggs", "music_activate" );
 	}
-
-	wait(236);
+	
+	wait(236);	
 	level.music_override = false;
 	level thread maps\_zombiemode_audio::change_zombie_music( "wave_loop" );
 }
@@ -526,17 +528,17 @@ play_radio_sounds()
 	radio_one = getent("radio_one_origin", "targetname");
 	radio_two = getent("radio_two_origin", "targetname");
 	radio_three = getent("radio_three_origin", "targetname");
-
+	
 	pa_system = getent("speaker_in_attic", "targetname");
-
+	
 	radio_one stoploopsound(2);
 	radio_two stoploopsound(2);
 	radio_three stoploopsound(2);
-
+	
 	wait(0.05);
 	pa_system playsound("secret_message", "message_complete");
 	pa_system waittill("message_complete");
-
+	
 	radio_one playsound ("static");
 	radio_two playsound ("static");
 	radio_three playsound ("static");
@@ -545,28 +547,28 @@ radio_eggs()
 {
 	if(!IsDefined (level.radio_counter))
 	{
-		level.radio_counter = 0;
+		level.radio_counter = 0;	
 	}
 	while(level.radio_counter < 3)
 	{
-		wait(2);
+		wait(2);	
 	}
 	level thread play_radio_sounds();
-
-
+	
+	
 }
 superegg_one()
 {
 	if(!IsDefined (level.superegg_counter))
 	{
-		level.superegg_counter = 0;
+		level.superegg_counter = 0;	
 	}
-
+	
 	superegg_one_trig = getent ("superegg_radio_trigger_1", "targetname");
 	superegg_one_trig UseTriggerRequireLookAt();
 	superegg_one_trig SetCursorHint( "HINT_NOICON" );
 	superegg_radio_one = getent("superegg_radio_origin_1", "targetname");
-
+	
 	superegg_one_trig waittill( "trigger" );
 	level.superegg_counter = level.superegg_counter + 1;
 	superegg_radio_one playloopsound ("static_loop");
@@ -575,14 +577,14 @@ superegg_two()
 {
 	if(!IsDefined (level.superegg_counter))
 	{
-		level.superegg_counter = 0;
+		level.superegg_counter = 0;	
 	}
-
+	
 	superegg_two_trig = getent ("superegg_radio_trigger_2", "targetname");
 	superegg_two_trig UseTriggerRequireLookAt();
 	superegg_two_trig SetCursorHint( "HINT_NOICON" );
 	superegg_radio_two = getent("superegg_radio_origin_2", "targetname");
-
+	
 	superegg_two_trig waittill( "trigger" );
 	level.superegg_counter = level.superegg_counter + 1;
 	superegg_radio_two playloopsound ("static_loop");
@@ -591,14 +593,14 @@ superegg_three()
 {
 	if(!IsDefined (level.superegg_counter))
 	{
-		level.superegg_counter = 0;
+		level.superegg_counter = 0;	
 	}
-
+	
 	superegg_three_trig = getent ("superegg_radio_trigger_3", "targetname");
 	superegg_three_trig UseTriggerRequireLookAt();
 	superegg_three_trig SetCursorHint( "HINT_NOICON" );
 	superegg_radio_three = getent("superegg_radio_origin_3", "targetname");
-
+	
 	superegg_three_trig waittill( "trigger" );
 	level.superegg_counter = level.superegg_counter + 1;
 	superegg_radio_three playloopsound ("static_loop");
@@ -608,17 +610,17 @@ play_super_egg_radio_pa_sounds()
 	superegg_radio_one = getent("radio_one_origin", "targetname");
 	superegg_radio_two = getent("radio_two_origin", "targetname");
 	superegg_radio_three = getent("radio_three_origin", "targetname");
-
+	
 	pa_system = getent("speaker_in_attic", "targetname");
-
+	
 	superegg_radio_one stoploopsound(2);
 	superegg_radio_two stoploopsound(2);
 	superegg_radio_three stoploopsound(2);
-
+	
 	wait(0.05);
 	pa_system playsound("superegg_secret_message", "message_complete");
 	pa_system waittill("message_complete");
-
+	
 	superegg_radio_one playsound ("static");
 	superegg_radio_two playsound ("static");
 	superegg_radio_three playsound ("static");
@@ -627,29 +629,29 @@ super_egg()
 {
 	if(!IsDefined (level.superegg_counter))
 	{
-		level.superegg_counter = 0;
+		level.superegg_counter = 0;	
 	}
 	while(level.superegg_counter < 3)
 	{
-		wait(2);
+		wait(2);	
 	}
 	level thread play_super_egg_radio_pa_sounds();
-
-
+	
+	
 }
 battle_radio()
 {
 	if(!IsDefined (level.radio_counter))
 	{
-		level.radio_counter = 0;
+		level.radio_counter = 0;	
 	}
 
 	battle_radio_trig = getent ("battle_radio_trigger", "targetname");
 	battle_radio_trig UseTriggerRequireLookAt();
 	battle_radio_trig SetCursorHint( "HINT_NOICON" );
 	battle_radio_origin = getent("battle_radio_origin", "targetname");
-
-	battle_radio_trig waittill( "trigger", player);
+	
+	battle_radio_trig waittill( "trigger", player);		
 	battle_radio_origin playsound ("battle_message");
 
 }
@@ -657,15 +659,15 @@ whisper_radio()
 {
 	if(!IsDefined (level.radio_counter))
 	{
-		level.radio_counter = 0;
+		level.radio_counter = 0;	
 	}
 
 	whisper_radio_trig = getent ("whisper_radio_trigger", "targetname");
 	whisper_radio_trig UseTriggerRequireLookAt();
 	whisper_radio_trig SetCursorHint( "HINT_NOICON" );
 	whisper_radio_origin = getent("whisper_radio_origin", "targetname");
-
-	whisper_radio_trig waittill( "trigger");
+	
+	whisper_radio_trig waittill( "trigger");		
 	whisper_radio_origin playsound ("whisper_message");
 
 }
@@ -673,14 +675,14 @@ radio_one()
 {
 	if(!IsDefined (level.radio_counter))
 	{
-		level.radio_counter = 0;
+		level.radio_counter = 0;	
 	}
-
+	
 	radio_one_trig = getent ("radio_one", "targetname");
 	radio_one_trig UseTriggerRequireLookAt();
 	radio_one_trig SetCursorHint( "HINT_NOICON" );
 	radio_one = getent("radio_one_origin", "targetname");
-
+	
 	radio_one_trig waittill( "trigger" );
 	level.radio_counter = level.radio_counter + 1;
 	radio_one playloopsound ("static_loop");
@@ -689,34 +691,34 @@ radio_two()
 {
 	if(!IsDefined (level.radio_counter))
 	{
-		level.radio_counter = 0;
+		level.radio_counter = 0;	
 	}
 
 	radio_two_trig = getent ("radio_two", "targetname");
 	radio_two_trig UseTriggerRequireLookAt();
 	radio_two_trig SetCursorHint( "HINT_NOICON" );
 	radio_two = getent("radio_two_origin", "targetname");
-
+	
 	radio_two_trig waittill( "trigger", players);
 	level.radio_counter = level.radio_counter + 1;
 	radio_two playloopsound ("static_loop");
-
+	
 
 }
 radio_three()
 {
 	if(!IsDefined (level.radio_counter))
 	{
-		level.radio_counter = 0;
+		level.radio_counter = 0;	
 	}
 
 	radio_three_trig = getent ("radio_three_trigger", "targetname");
 	radio_three_trig UseTriggerRequireLookAt();
-	radio_three_trig SetCursorHint( "HINT_NOICON" );
+	radio_three_trig SetCursorHint( "HINT_NOICON" ); 
 	radio_three = getent("radio_three_origin", "targetname");
 
 	radio_three_trig waittill( "trigger", players);
-	level.radio_counter = level.radio_counter + 1;
+	level.radio_counter = level.radio_counter + 1;			
 	radio_three playloopsound ("static_loop");
 
 }
@@ -738,9 +740,9 @@ meteor_trigger()
 		}
 		else
 		{
-			wait(0.1);
+			wait(0.1);	
 		}
-	}
+	}	
 
 }
 
@@ -810,7 +812,7 @@ sumpf_find_exit_point()
 		}
 		wait_network_frame();
 	}
-
+	
 	self thread maps\_zombiemode_spawner::find_flesh();
 }
 
@@ -819,16 +821,16 @@ sumpf_find_exit_point()
 //-------------------------------------------------------------------------------
 sumpf_player_spawn_placement()
 {
-	structs = getstructarray( "initial_spawn_points", "targetname" );
+	structs = getstructarray( "initial_spawn_points", "targetname" ); 
 
-	flag_wait( "all_players_connected" );
+	flag_wait( "all_players_connected" ); 
 
-	players = get_players();
+	players = get_players(); 
 
 	for( i = 0; i < players.size; i++ )
 	{
-		players[i] setorigin( structs[i].origin );
-		players[i] setplayerangles( structs[i].angles );
+		players[i] setorigin( structs[i].origin ); 
+		players[i] setplayerangles( structs[i].angles ); 
 		players[i].spectator_respawn = structs[i];
 	}
 }
@@ -839,3 +841,4 @@ water_burst_overwrite()
 	level._effect["rise_burst_water"]		  	= LoadFX("maps/zombie/fx_zombie_body_wtr_burst_smpf");
 	level._effect["rise_billow_water"]			= LoadFX("maps/zombie/fx_zombie_body_wtr_billow_smpf");
 }
+	
