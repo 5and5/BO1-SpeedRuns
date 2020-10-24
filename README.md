@@ -18,7 +18,7 @@
 * Removed player quotes
 
 ### Box
-* First box setup on every map (doesn't work in coop)
+* First box setup on every map (use v1.0 for coop)
 * First hit will always be a raygun on maps that need it
 
 ### Power Ups

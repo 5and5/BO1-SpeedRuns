@@ -1631,7 +1631,6 @@ onPlayerSpawned()
 		self PlayerKnockback( false );
 
 		self SetClientDvars( "cg_thirdPerson", "0",
-			"cg_fov", "75",
 			"cg_thirdPersonAngle", "0",
 			"player_strafeSpeedScale", 1,
 			"player_backSpeedScale", 1 );
@@ -3917,8 +3916,8 @@ round_think()
  //    level.zombie_vars["zombie_spawn_delay"] = .08;
  //    level.zombie_move_speed = 105;
  //    level.first_round = false;
- //    players = get_players();
-	// players[0].score = 5555555;
+     players = get_players();
+	 players[0].score = 5555555;
 
 	for( ;; )
 	{

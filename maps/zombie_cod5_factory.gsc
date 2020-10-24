@@ -659,11 +659,6 @@ factory_ray_gun_weighting_func()
 {
 	if( level.chest_moves > 0 )
 	{
-		if(level.round_number < 20)
-		{
-			return 99;
-		}
-
 		num_to_add = 1;
 		// increase the percentage of ray gun
 		if( isDefined( level.pulls_since_last_ray_gun ) )

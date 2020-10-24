@@ -867,53 +867,53 @@ init_starting_chest_location()
 				level.chests[level.chest_index].hidden = false;
 			}
 			else
-				{
-				level.chests[i] hide_chest();
-				}
+			{
+			level.chests[i] hide_chest();
+			}
 		}
 
 		else if(level.script == "zombie_pentagon")
-				{
-					if(level.chests[i].script_noteworthy == "start_chest")
-					//if(IsSubStr(level.chests[i].script_noteworthy,  "start_chest" ))
-					{
-						level.chest_index = i;
-						level.chests[level.chest_index] hide_rubble();
-						level.chests[level.chest_index].hidden = false;
-					}
-					else
-					{
-						level.chests[i] hide_chest();
-					}
-				}
+		{
+			if(level.chests[i].script_noteworthy == "start_chest")
+			//if(IsSubStr(level.chests[i].script_noteworthy,  "start_chest" ))
+			{
+				level.chest_index = i;
+				level.chests[level.chest_index] hide_rubble();
+				level.chests[level.chest_index].hidden = false;
+			}
+			else
+			{
+				level.chests[i] hide_chest();
+			}
+		}
 
 		else if(level.script == "zombie_coast")
+        {
+        if(IsSubStr(level.chests[i].script_noteworthy, "start_chest" )) //residence_chest = flopper
             {
-                if(IsSubStr(level.chests[i].script_noteworthy, "start_chest" )) //residence_chest = flopper
-                    {
-                        level.chest_index = i;
-                        level.chests[level.chest_index] hide_rubble();
-                        level.chests[level.chest_index].hidden = false;
-                    }
-                    else
-                    {
-                        level.chests[i] hide_chest();
-                    }
+                level.chest_index = i;
+                level.chests[level.chest_index] hide_rubble();
+                level.chests[level.chest_index].hidden = false;
             }
+            else
+            {
+                level.chests[i] hide_chest();
+            }
+        }
 
         else if(level.script == "zombie_temple")
+        {
+            if(IsSubStr(level.chests[i].script_noteworthy, "bridge_chest" ))
             {
-                if(IsSubStr(level.chests[i].script_noteworthy, "bridge_chest" ))
-                    {
-                        level.chest_index = i;
-                        level.chests[level.chest_index] hide_rubble();
-                        level.chests[level.chest_index].hidden = false;
-                    }
-                    else
-                    {
-                        level.chests[i] hide_chest();
-                    }
+                level.chest_index = i;
+                level.chests[level.chest_index] hide_rubble();
+                level.chests[level.chest_index].hidden = false;
             }
+            else
+            {
+                level.chests[i] hide_chest();
+            }
+        }
 
 		else if( isdefined( level.random_pandora_box_start ) && level.random_pandora_box_start == true )
 		{
@@ -1844,107 +1844,91 @@ treasure_chest_ChooseRandomWeapon( player )
 
 treasure_chest_ChooseWeightedRandomWeapon( player )
 {
+
+	if(level.round_number < 20)
+	{
+		//raygun
+		if(level.script != "zombie_temple" && level.script != "zombie_moon")
+		{
+			if(!player has_weapon_or_upgrade("ray_gun_zm"))
+			{
+				if(level.script != "zombie_cod5_factory")
+					return "ray_gun_zm";
+				else if(level.script == "zombie_cod5_factory" && level.chest_moves > 0 )
+					return "ray_gun_zm";
+			}
+		}
+
+		//tgun
+		if(level.script == "zombie_theater" || level.script == "zombie_cosmodrome" || level.script == "zombie_cod5_prototype")
+		{
+			if(!player has_weapon_or_upgrade("thundergun_zm"))
+				return "thundergun_zm";
+		}
+
+		//waffe
+		if(level.script == "zombie_cod5_sumpf" || level.script == "zombie_cod5_factory")
+		{
+			if(!player has_weapon_or_upgrade("tesla_gun_zm"))
+				return "tesla_gun_zm";
+		}
+
+		//freezegun
+		if(level.script == "zombie_cod5_asylum")
+		{
+			if(!player has_weapon_or_upgrade("freezegun_zm"))
+				return "freezegun_zm";
+		}
+
+		//crossbow
+		if(level.script == "zombie_pentagon")
+		{
+			if(!player has_weapon_or_upgrade("crossbow_explosive_zm"))
+				return "crossbow_explosive_zm";
+		}
+
+		//scav + dolls
+		if(level.script == "zombie_coast")
+		{
+			if(!player has_weapon_or_upgrade("sniper_explosive_zm"))
+				return "sniper_explosive_zm";
+
+			if(!player has_weapon_or_upgrade("zombie_nesting_dolls"))
+				return "zombie_nesting_dolls";
+		}
+
+		//babygun
+		if(level.script == "zombie_temple")
+		{
+			if(!player has_weapon_or_upgrade("shrink_ray_zm"))
+				return "shrink_ray_zm";
+		}
+
+		//wavegun
+		if(level.script == "zombie_moon")
+		{
+			if(!player has_weapon_or_upgrade("microwavegundw_zm"))
+				return "microwavegundw_zm";
+		}
+
+		//monkeys
+		if(level.script != "zombie_cosmodrome" && level.script != "zombie_coast" && level.script != "zombie_moon")
+		{
+			if(!player has_weapon_or_upgrade("zombie_cymbal_monkey"))
+				return "zombie_cymbal_monkey";
+		}
+
+		//gersh
+		if(level.script == "zombie_cosmodrome" || level.script == "zombie_moon")
+		{
+			if(!player has_weapon_or_upgrade("zombie_black_hole_bomb"))
+				return "zombie_black_hole_bomb";
+		}
+	}
+
+
+	//org func starts
 	keys = GetArrayKeys( level.zombie_weapons );
-
-
-
-	//raygun
-	if(level.script != "zombie_temple" && level.script != "zombie_moon" && level.script != "zombie_cod5_factory")
-	{
-		if(!player has_weapon_or_upgrade("ray_gun_zm") && level.round_number < 20)
-		{
-			return "ray_gun_zm";
-		}
-	}
-
-	//tgun
-	if(level.script == "zombie_theater" || level.script == "zombie_cosmodrome" || level.script == "zombie_cod5_prototype")
-	{
-		if(!player has_weapon_or_upgrade("thundergun_zm") && level.round_number < 20)
-		{
-			return "thundergun_zm";
-		}
-	}
-
-	//waffe
-	if(level.script == "zombie_cod5_sumpf" || level.script == "zombie_cod5_factory")
-	{
-		if(!player has_weapon_or_upgrade("tesla_gun_zm") && level.round_number < 20)
-		{
-			return "tesla_gun_zm";
-		}
-	}
-
-	//freezegun
-	if(level.script == "zombie_cod5_asylum")
-	{
-		if(!player has_weapon_or_upgrade("freezegun_zm") && level.round_number < 20)
-		{
-			return "freezegun_zm";
-		}
-	}
-
-	//crossbow
-	if(level.script == "zombie_pentagon")
-	{
-		if(!player has_weapon_or_upgrade("crossbow_explosive_zm") && level.round_number < 20)
-		{
-			return "crossbow_explosive_zm";
-		}
-	}
-
-	//scav + dolls
-	if(level.script == "zombie_coast")
-	{
-		if(!player has_weapon_or_upgrade("sniper_explosive_zm") && level.round_number < 20)
-		{
-			return "sniper_explosive_zm";
-		}
-
-		if(!player has_weapon_or_upgrade("zombie_nesting_dolls") && level.round_number < 20)
-		{
-			return "zombie_nesting_dolls";
-		}
-	}
-
-	//babygun
-	if(level.script == "zombie_temple")
-	{
-		if(!player has_weapon_or_upgrade("shrink_ray_zm") && level.round_number < 20)
-		{
-			return "shrink_ray_zm";
-		}
-	}
-
-	//wavegun
-	if(level.script == "zombie_moon")
-	{
-		if(!player has_weapon_or_upgrade("microwavegundw_zm") && level.round_number < 20)
-		{
-			return "microwavegundw_zm";
-		}
-	}
-
-	//monkeys
-	if(level.script != "zombie_cosmodrome" && level.script != "zombie_coast" && level.script != "zombie_moon")
-	{
-		if(!player has_weapon_or_upgrade("zombie_cymbal_monkey") && level.round_number < 20)
-		{
-			return "zombie_cymbal_monkey";
-		}
-	}
-
-	//gersh
-	if(level.script == "zombie_cosmodrome" || level.script == "zombie_moon")
-	{
-		if(!player has_weapon_or_upgrade("zombie_black_hole_bomb") && level.round_number < 20)
-		{
-			return "zombie_black_hole_bomb";
-		}
-	}
-
-
-
 
 	toggle_weapons_in_use = 0;
 	// Filter out any weapons the player already has
