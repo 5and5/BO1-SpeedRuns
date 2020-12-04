@@ -160,6 +160,7 @@ main()
 	level thread maps\zombie_temple_sq::start_temple_sidequest();
 
 	// night mode
+	setDvar("night_mode", 1);
 	level thread activate_night();
 }
 
@@ -1154,4 +1155,33 @@ temple_revive_solo_fx()
 			break;
 		}
 	}
+}
+
+activate_night()
+{
+	flag_wait("all_players_spawned");
+    wait 1.8;
+
+    while(1)
+    {
+	    if( getDvarInt( "night_mode" ) == 1)
+		{
+			if(getDvarInt( "r_skyTransition") != 1)
+			{
+				SetSunlight( 0.5426, 0.6538, 0.7657);
+				SetSavedDvar("r_lightTweakSunLight", 11);
+				SetSavedDvar("r_skyTransition", 1);
+			}
+		}
+		else
+		{
+			if(getDvarInt( "r_skyTransition") != 0)
+			{
+				ResetSunlight();
+				SetSavedDvar("r_lightTweakSunLight", 13);
+				SetSavedDvar("r_skyTransition", 0);
+			}
+		}
+		wait 0.1;
+    }
 }

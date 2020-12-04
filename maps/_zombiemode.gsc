@@ -3912,12 +3912,12 @@ chalk_round_over()
 round_think()
 {
 	// strat tester
- //    level.round_number = 10; //69
- //    level.zombie_vars["zombie_spawn_delay"] = .08;
- //    level.zombie_move_speed = 105;
- //    level.first_round = false;
-     players = get_players();
-	 players[0].score = 5555555;
+  //   level.round_number = 255; //69
+  //   level.zombie_vars["zombie_spawn_delay"] = .08;
+  //   level.zombie_move_speed = 105;
+  //   level.first_round = false;
+  //   players = get_players();
+	 // players[0].score = 69345071;
 
 	for( ;; )
 	{

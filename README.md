@@ -18,7 +18,7 @@
 * Removed player quotes
 
 ### Box
-* First box setup on every map (use v1.0 for coop)
+* First box setup on every map
 * First hit will always be a raygun on maps that need it
 
 ### Power Ups
@@ -78,6 +78,7 @@
 * Initial box set to waterfall
 * Initial perks locations set
 * Initial pack-a-punch stone set to spawn
+* Night mode "/night_mode 0" to turn it off
 
 ### Moon
 * None

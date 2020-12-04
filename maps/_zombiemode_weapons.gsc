@@ -1842,9 +1842,20 @@ treasure_chest_ChooseRandomWeapon( player )
 
 }
 
+any_player_has_weapon(weap)
+{	
+	players = get_players();
+	has_weap = false;
+	for(i = 0; players.size > i; i++)
+	{
+		if(players[i] has_weapon_or_upgrade(weap))
+			has_weap = true;
+	}
+	return has_weap;
+}
+
 treasure_chest_ChooseWeightedRandomWeapon( player )
 {
-
 	if(level.round_number < 20)
 	{
 		//raygun
@@ -1861,53 +1872,43 @@ treasure_chest_ChooseWeightedRandomWeapon( player )
 
 		//tgun
 		if(level.script == "zombie_theater" || level.script == "zombie_cosmodrome" || level.script == "zombie_cod5_prototype")
-		{
-			if(!player has_weapon_or_upgrade("thundergun_zm"))
+		{	
+			if(!player has_weapon_or_upgrade("thundergun_zm") && !any_player_has_weapon("thundergun_zm"))
 				return "thundergun_zm";
 		}
 
 		//waffe
 		if(level.script == "zombie_cod5_sumpf" || level.script == "zombie_cod5_factory")
-		{
-			if(!player has_weapon_or_upgrade("tesla_gun_zm"))
+		{	
+			if(!player has_weapon_or_upgrade("tesla_gun_zm") && !any_player_has_weapon("tesla_gun_zm"))
 				return "tesla_gun_zm";
 		}
 
-		//freezegun
-		if(level.script == "zombie_cod5_asylum")
-		{
-			if(!player has_weapon_or_upgrade("freezegun_zm"))
-				return "freezegun_zm";
+		//scav
+		if(level.script == "zombie_coast")
+		{	
+			if(!player has_weapon_or_upgrade("sniper_explosive_zm") && !any_player_has_weapon("sniper_explosive_zm"))
+				return "sniper_explosive_zm";
 		}
 
-		//crossbow
-		if(level.script == "zombie_pentagon")
-		{
-			if(!player has_weapon_or_upgrade("crossbow_explosive_zm"))
-				return "crossbow_explosive_zm";
-		}
-
-		//scav + dolls
+		//dolls
 		if(level.script == "zombie_coast")
 		{
-			if(!player has_weapon_or_upgrade("sniper_explosive_zm"))
-				return "sniper_explosive_zm";
-
-			if(!player has_weapon_or_upgrade("zombie_nesting_dolls"))
+			if(!player has_weapon_or_upgrade("zombie_nesting_dolls") && !any_player_has_weapon("zombie_nesting_dolls"))
 				return "zombie_nesting_dolls";
 		}
 
 		//babygun
 		if(level.script == "zombie_temple")
 		{
-			if(!player has_weapon_or_upgrade("shrink_ray_zm"))
+			if(!player has_weapon_or_upgrade("shrink_ray_zm") && !any_player_has_weapon("shrink_ray_zm"))
 				return "shrink_ray_zm";
 		}
 
 		//wavegun
 		if(level.script == "zombie_moon")
 		{
-			if(!player has_weapon_or_upgrade("microwavegundw_zm"))
+			if(!player has_weapon_or_upgrade("microwavegundw_zm") && !any_player_has_weapon("microwavegundw_zm"))
 				return "microwavegundw_zm";
 		}
 
@@ -1923,6 +1924,31 @@ treasure_chest_ChooseWeightedRandomWeapon( player )
 		{
 			if(!player has_weapon_or_upgrade("zombie_black_hole_bomb"))
 				return "zombie_black_hole_bomb";
+		}
+
+		//five
+		if(level.script == "zombie_pentagon")
+		{	
+			if(!player has_weapon_or_upgrade("crossbow_explosive_zm") && !any_player_has_weapon("crossbow_explosive_zm"))
+				return "crossbow_explosive_zm";
+			if(!player has_weapon_or_upgrade("freezegun_zm") && !any_player_has_weapon("freezegun_zm"))
+				return "freezegun_zm";
+		}
+
+		//verruckt
+		if(level.script == "zombie_cod5_asylum")
+		{	
+			if(!player has_weapon_or_upgrade("freezegun_zm") && !any_player_has_weapon("freezegun_zm"))
+				return "freezegun_zm";
+			if(!player has_weapon_or_upgrade("rpk_zm"))
+				return "rpk_zm";
+		}
+
+		//raygun again for coop on shang/moon
+		if(level.script == "zombie_temple" && level.script == "zombie_moon")
+		{
+			if(!player has_weapon_or_upgrade("ray_gun_zm"))
+				return "ray_gun_zm";
 		}
 	}
 
